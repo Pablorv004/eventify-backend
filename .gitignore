@@ -1,0 +1,7 @@
+# Ignore IDE specific files
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
