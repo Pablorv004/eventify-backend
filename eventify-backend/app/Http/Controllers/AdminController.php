@@ -67,4 +67,22 @@ class AdminController extends Controller
     {
         //
     }
+
+    public function toggleUserStatus(int $id){
+        $user = User::find($id);
+        
+        $message = "";
+
+        if($user->activated == 0){
+            $user->activated = 1;
+            $message = 'User' . $user->name . ' activated succesfully.';
+        }else{
+            $user->activated = 0;
+            $message = 'User' . $user->name . ' deactivated succesfully.';
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', $message);
+    }
 }

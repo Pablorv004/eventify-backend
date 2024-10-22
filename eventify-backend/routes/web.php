@@ -9,11 +9,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/admin/admin_view', function () {
-//     return view('admin.admin_view');
-// })->middleware('auth');
-
 Route::get('/admin/admin_view', [AdminController::class, 'index'])->middleware(['auth', 'role:a']);
+
+Route::get('/toggleuserstatus/{id}', [AdminController::class, 'toggleUserStatus'])->name('toggle.userstatus');
 
 Auth::routes();
 
