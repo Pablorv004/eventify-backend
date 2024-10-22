@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Mail\ActivationEmail;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -76,6 +78,7 @@ class AdminController extends Controller
         if($user->activated == 0){
             $user->activated = 1;
             $message = 'User' . $user->name . ' activated succesfully.';
+            Mail::to($user->email)->send(new ActivationEmail($user));
         }else{
             $user->activated = 0;
             $message = 'User' . $user->name . ' deactivated succesfully.';
