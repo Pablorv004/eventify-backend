@@ -31,8 +31,13 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        $role = Auth::user()->role;
+        $user = Auth::user();
 
+        if (!$user->hasVerifiedEmail()) {
+            return '/email/verify';
+        }
+
+        $role = $user->role;
         switch ($role) {
             case 'a':
                 return '/admin/admin_view';
