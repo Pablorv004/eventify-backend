@@ -77,11 +77,11 @@ class AdminController extends Controller
 
         if($user->activated == 0){
             $user->activated = 1;
-            $message = 'User' . $user->name . ' activated succesfully.';
+            $message = 'Account of user ' . $user->name . ' activated succesfully.';
             Mail::to($user->email)->send(new ActivationEmail($user));
         }else{
             $user->activated = 0;
-            $message = 'User' . $user->name . ' deactivated succesfully.';
+            $message = 'Account of user ' . $user->name . ' deactivated succesfully.';
         }
 
         $user->save();
