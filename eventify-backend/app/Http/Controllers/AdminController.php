@@ -49,17 +49,44 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
-        //
+        $user = User::find($id);
+        return view('users.edit_user', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        // $this->validate(request(), [
+        //     'reply' => ['required', new ValidReply]
+        // ]);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        $role = $request->input('user_role');
+        switch ($role) {
+            case 'Admin':
+                $user->role = 'a';
+                break;
+            case 'User':
+                $user->role = 'u';
+                break;
+            case 'Organizer':
+                $user->role = 'o';
+                break;
+            default:
+                $user->role = 'o';
+        }
+
+        $user->save();
+
+        
+        return redirect()->back()->with('success', __('The user has been updated succesfully'));
+        
     }
 
     /**
@@ -67,12 +94,25 @@ class AdminController extends Controller
      */
     public function destroy(int $id)
     {
-        $user = User::find($id);
+        //
+    }
 
-        $user->deleted = 1;
+    public function toggleSoftDelete(int $id){
+        $user = User::find($id);
+        
+        $message = "";
+
+        if($user->deleted == 0){
+            $user->deleted = 1;
+            $message = 'Account of user ' . $user->name . ' soft deleted succesfully';
+        }else{
+            $user->deleted = 0;
+            $message = 'Account of user ' . $user->name . ' restored succesfully';
+        }
+
         $user->save();
 
-        return redirect()->back()->with('success', 'User ' . $user->name . ' deleted succesfully');
+        return redirect()->back()->with('success', $message);
     }
 
     public function toggleUserStatus(int $id){
@@ -87,6 +127,24 @@ class AdminController extends Controller
         }else{
             $user->activated = 0;
             $message = 'Account of user ' . $user->name . ' deactivated succesfully';
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', $message);
+    }
+
+    public function toggleUserVerified(int $id){
+        $user = User::find($id);
+        
+        $message = "";
+
+        if($user->email_confirmed == 0){
+            $user->email_confirmed = 1;
+            $message = 'Email of user ' . $user->name . ' verified succesfully';
+        }else{
+            $user->email_confirmed = 0;
+            $message = 'Email of user ' . $user->name . ' unverified succesfully';
         }
 
         $user->save();

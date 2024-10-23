@@ -13,10 +13,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/admin_view', [AdminController::class, 'index'])->middleware(['auth', 'role:a']);
 
+Route::resource('users', AdminController::class)->middleware(['auth', 'role:a']);;
 Route::get('/toggleuserstatus/{id}', [AdminController::class, 'toggleUserStatus'])->name('toggle.userstatus');
-Route::get('/deleteuser/{id}', [AdminController::class, 'destroy'])->name('deleteuser');
+Route::get('/toggleuserverified/{id}', [AdminController::class, 'toggleUserVerified'])->name('toggle.userverified');
+Route::get('/deleteuser/{id}', [AdminController::class, 'toggleSoftDelete'])->name('toggle.softdelete');
 
 Auth::routes();
 

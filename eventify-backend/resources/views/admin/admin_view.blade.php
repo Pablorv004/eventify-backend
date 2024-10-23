@@ -5,8 +5,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                @include("partials.errors")
-                @include("partials.messages")
+                @include('partials.errors')
+                @include('partials.messages')
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title text-uppercase mb-0">Manage Users</h5>
@@ -30,7 +30,8 @@
                             @forelse($users as $user)
                                 <tbody>
                                     <tr>
-                                        <td> <img class="img-fluid" style="width: 50%;" src="{{ asset($user->profile_picture) }}" alt=""> </td>
+                                        <td> <img class="img-fluid" style="width: 30%"
+                                                src="{{ asset($user->profile_picture) }}" alt=""> </td>
                                         <td class="fw-bold">{{ $user->id }}</td>
                                         <td>
                                             <h5 class="font-medium mb-0">{{ $user->name }}</h5>
@@ -60,15 +61,34 @@
                                             <h5 class="font-medium mb-0">{{ $user->deleted }}</h5>
                                         </td>
                                         <td>
-                                            <a href="{{ route('toggle.userstatus', $user->id) }}"
-                                                class="btn btn-outline-info btn-circle btn-lg btn-circle  toggle-status" data-id="{{ $user->id }}" data-status="{{ $user->activated }}" data-name="{{ $user->name }}">
-                                                <i class="fa fa-key" style="color: {{ $user->activated == 0 ? '#26ec18' : '#ec1818' }}"></i>
+                                            <button type="button"
+                                                class="btn btn-outline-info btn-circle btn-lg toggle-status"
+                                                data-id="{{ $user->id }}" 
+                                                data-status="{{ $user->activated }}"
+                                                data-name="{{ $user->name }}"
+                                                {{ $user->email_confirmed == 0 ? 'disabled' : '' }}>
+                                                @if($user->email_confirmed == 1)
+                                                    <i class="fa fa-key" style="color: {{ $user->activated == 0 ? '#26ec18' : '#ec1818' }}"></i>
+                                                @else
+                                                    <i class="fa fa-key" style="color: #a2a2a3"></i>
+                                                @endif
+                                            </button>
+
+                                            @if ($user->deleted == 1)
+                                                <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle" disabled> 
+                                                    <i class="fa fa-trash" style="color: #a2a2a3"></i> 
+                                                </button>
+                                            @else
+                                                <a href="{{ route('toggle.softdelete', $user->id) }}"
+                                                    class="btn btn-outline-info btn-circle btn-lg btn-circle  deleteuser"
+                                                    data-id="{{ $user->id }}" data-name="{{ $user->name }}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            @endif
+                                            <a href="{{ route('users.edit', $user->id) }}"
+                                                class="btn btn-outline-info btn-circle btn-lg btn-circle  edituser">
+                                                <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="{{ route('deleteuser', $user->id) }}"
-                                                class="btn btn-outline-info btn-circle btn-lg btn-circle  deleteuser" data-id="{{ $user->id }}" data-deleted="{{ $user->deleted }}" data-name="{{ $user->name }}">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-edit"></i> </button>   
                                         </td>
                                     </tr>
                                 </tbody>
@@ -84,30 +104,58 @@
 @endsection
 
 @section('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.toggle-status').forEach(button => {
-            button.addEventListener('click', function (event) {
-                // Prevent default action of the button (Activate directly without waiting for confirmation)
-                event.preventDefault();
+    // Activation confirm dialog
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toggle-status').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    // Prevent default action of the button (Activate directly without waiting for confirmation)
+                    event.preventDefault();
 
-                // Obtain user ID and account status
-                const userId = this.getAttribute('data-id');
-                const userName = this.getAttribute('data-name');
-                const accountStatus = parseInt(this.getAttribute('data-status'));
+                    // Obtain user ID and account status
+                    const userId = this.getAttribute('data-id');
+                    const userName = this.getAttribute('data-name');
+                    const accountStatus = parseInt(this.getAttribute('data-status'));
 
-                let confirmation = "";
-                if (accountStatus == 0) {
-                    confirmation = confirm(`Are you sure you want to activate the account of the user ${userName}?`);
-                } else {
-                    confirmation = confirm(`Are you sure you want to deactivate the account of the user ${userName}?`);
-                }
+                    let confirmation = "";
+                    if (accountStatus == 0) {
+                        confirmation = confirm(
+                            `Are you sure you want to activate the account of the user ${userName}?`
+                            );
+                    } else {
+                        confirmation = confirm(
+                            `Are you sure you want to deactivate the account of the user ${userName}?`
+                            );
+                    }
 
-                if (confirmation) {
-                    window.location.href = this.getAttribute('href');
-                }
+                    if (confirmation) {
+                        window.location.href = `/toggleuserstatus/${userId}`;
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+
+    // Soft delete confirm dialog
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.deleteuser').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    // Prevent default action of the button (Activate directly without waiting for confirmation)
+                    event.preventDefault();
+
+                    // Obtain user ID and account status
+                    const userId = this.getAttribute('data-id');
+                    const userName = this.getAttribute('data-name');
+
+                    let confirmation = confirm(
+                        `Are you sure you want to delete the account of the user ${userName}?`);
+
+                    if (confirmation) {
+                        window.location.href = this.getAttribute('href');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
