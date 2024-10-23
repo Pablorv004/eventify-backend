@@ -16,6 +16,7 @@ Route::get('/', function () {
 Route::get('/admin/admin_view', [AdminController::class, 'index'])->middleware(['auth', 'role:a']);
 
 Route::get('/toggleuserstatus/{id}', [AdminController::class, 'toggleUserStatus'])->name('toggle.userstatus');
+Route::get('/deleteuser/{id}', [AdminController::class, 'destroy'])->name('deleteuser');
 
 Auth::routes();
 

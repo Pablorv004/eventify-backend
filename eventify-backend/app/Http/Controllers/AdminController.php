@@ -65,9 +65,14 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        $user = User::find($id);
+
+        $user->deleted = 1;
+        $user->save();
+
+        return redirect()->back()->with('success', 'User ' . $user->name . ' deleted succesfully');
     }
 
     public function toggleUserStatus(int $id){
@@ -77,11 +82,11 @@ class AdminController extends Controller
 
         if($user->activated == 0){
             $user->activated = 1;
-            $message = 'Account of user ' . $user->name . ' activated succesfully.';
+            $message = 'Account of user ' . $user->name . ' activated succesfully';
             Mail::to($user->email)->send(new ActivationEmail($user));
         }else{
             $user->activated = 0;
-            $message = 'Account of user ' . $user->name . ' deactivated succesfully.';
+            $message = 'Account of user ' . $user->name . ' deactivated succesfully';
         }
 
         $user->save();

@@ -64,7 +64,10 @@
                                                 class="btn btn-outline-info btn-circle btn-lg btn-circle  toggle-status" data-id="{{ $user->id }}" data-status="{{ $user->activated }}" data-name="{{ $user->name }}">
                                                 <i class="fa fa-key" style="color: {{ $user->activated == 0 ? '#26ec18' : '#ec1818' }}"></i>
                                             </a>
-                                            <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-trash"></i> </button>
+                                            <a href="{{ route('deleteuser', $user->id) }}"
+                                                class="btn btn-outline-info btn-circle btn-lg btn-circle  deleteuser" data-id="{{ $user->id }}" data-deleted="{{ $user->deleted }}" data-name="{{ $user->name }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                             <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-edit"></i> </button>   
                                         </td>
                                     </tr>
