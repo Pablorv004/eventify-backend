@@ -54,15 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function sendEmailVerificationNotification()
-    {
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify', now()->addMinutes(60), ['id' => $this->id, 'hash' => sha1($this->email)]
-        );
-
-        Mail::to($this->email)->send(new CustomVerifyEmail($verificationUrl, $this));
-    }
-
     // Método para verificar si es admin
     public function isAdmin()
     {

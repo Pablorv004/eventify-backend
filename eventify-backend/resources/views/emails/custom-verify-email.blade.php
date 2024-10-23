@@ -1,8 +1,9 @@
 @component('mail::message')
+
 # Verify Your Email Address
 
 Hello {{ $user->name }},
-Macarrones con tomate y putas aceitunas
+
 Please click the button below to verify your email address.
 
 @component('mail::button', ['url' => $verificationUrl])
@@ -12,5 +13,5 @@ Verify Email Address
 If you did not create an account, no further action is required.
 
 Thanks,<br>
-{{ config('app.name') }}
+Eventify Team
 @endcomponent
