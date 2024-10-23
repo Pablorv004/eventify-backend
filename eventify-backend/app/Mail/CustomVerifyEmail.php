@@ -47,8 +47,7 @@ class CustomVerifyEmail extends Mailable
 
     public function build()
     {
-        return $this->markdown('emails.custom-verify-email')
-                    ->subject('Verify Your Email Address')
+        return $this->view('emails.custom-verify-email')
                     ->with([
                         'verificationUrl' => $this->verificationUrl,
                         'user' => $this->user,
