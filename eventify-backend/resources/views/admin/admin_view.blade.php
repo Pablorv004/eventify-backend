@@ -30,7 +30,7 @@
                             @forelse($users as $user)
                                 <tbody>
                                     <tr>
-                                        <td> <img class="img-fluid" style="width: 50%;" src="{{ asset('images/avatar-placeholder.png') }}" alt=""> </td>
+                                        <td> <img class="img-fluid" style="width: 50%;" src="{{ asset($user->profile_picture) }}" alt=""> </td>
                                         <td class="fw-bold">{{ $user->id }}</td>
                                         <td>
                                             <h5 class="font-medium mb-0">{{ $user->name }}</h5>
