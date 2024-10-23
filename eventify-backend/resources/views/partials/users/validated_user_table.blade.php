@@ -54,11 +54,12 @@
                         </td>
                         <td>
                             <button type="button"
-                                class="btn btn-outline-info btn-circle btn-lg toggle-status"
+                                class="btn btn-outline-info btn-circle btn-lg"
                                 data-id="{{ $user->id }}" 
                                 data-status="{{ $user->activated }}"
                                 data-name="{{ $user->name }}"
-                                {{ $user->email_confirmed == 0 ? 'disabled' : '' }}>
+                                {{ $user->email_confirmed == 0 ? 'disabled' : '' }}
+                                onclick=handleValidateButton(event)>
                                 @if($user->email_confirmed == 1)
                                     <i class="fa fa-key" style="color: {{ $user->activated == 0 ? '#26ec18' : '#ec1818' }}"></i>
                                 @else
@@ -71,11 +72,13 @@
                                     <i class="fa fa-trash" style="color: #a2a2a3"></i> 
                                 </button>
                             @else
-                                <a href="{{ route('toggle.softdelete', $user->id) }}"
-                                    class="btn btn-outline-info btn-circle btn-lg btn-circle  deleteuser"
-                                    data-id="{{ $user->id }}" data-name="{{ $user->name }}">
+                                <button 
+                                    id="deleteuser"
+                                    class="btn btn-outline-info btn-circle btn-lg btn-circle"
+                                    data-id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                    onclick="handleDeleteUser(event)">
                                     <i class="fa fa-trash"></i>
-                                </a>
+                                </button>
                             @endif
                             <a href="{{ route('users.edit', $user->id) }}"
                                 class="btn btn-outline-info btn-circle btn-lg btn-circle  edituser">

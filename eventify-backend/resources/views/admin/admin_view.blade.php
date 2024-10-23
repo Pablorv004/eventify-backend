@@ -19,55 +19,46 @@
 
 @section('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.toggle-status').forEach(button => {
-                button.addEventListener('click', function(event) {
-                    // Prevent default action of the button (Activate directly without waiting for confirmation)
-                    event.preventDefault();
+        function handleValidateButton(event) {
+            event.preventDefault();
 
-                    // Obtain user ID and account status
-                    const userId = this.getAttribute('data-id');
-                    const userName = this.getAttribute('data-name');
-                    const accountStatus = parseInt(this.getAttribute('data-status'));
+            const button = event.currentTarget;
 
-                    let confirmation = "";
-                    if (accountStatus == 0) {
-                        confirmation = confirm(
-                            `Are you sure you want to activate the account of the user ${userName}?`
-                            );
-                    } else {
-                        confirmation = confirm(
-                            `Are you sure you want to deactivate the account of the user ${userName}?`
-                            );
-                    }
+            const userId = button.getAttribute('data-id');
+            const userName = button.getAttribute('data-name');
+            const accountStatus = parseInt(button.getAttribute('data-status'));
 
-                    if (confirmation) {
-                        window.location.href = `/toggleuserstatus/${userId}`;
-                    }
-                });
-            });
-        });
-    </script>
+            let confirmation = "";
+            if (accountStatus == 0) {
+                confirmation = confirm(
+                    `Are you sure you want to activate the account of the user ${userName}?`
+                );
+            } else {
+                confirmation = confirm(
+                    `Are you sure you want to deactivate the account of the user ${userName}?`
+                );
+            }
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.deleteuser').forEach(button => {
-                button.addEventListener('click', function(event) {
-                    // Prevent default action of the button (Activate directly without waiting for confirmation)
-                    event.preventDefault();
+            if (confirmation) {
+                window.location.href = `/toggleuserstatus/${userId}`;
+            }
+        }
 
-                    // Obtain user ID and account status
-                    const userId = this.getAttribute('data-id');
-                    const userName = this.getAttribute('data-name');
+        function handleDeleteUser(event) {
+            event.preventDefault();
 
-                    let confirmation = confirm(
-                        `Are you sure you want to delete the account of the user ${userName}?`);
+            const button = event.currentTarget;
 
-                    if (confirmation) {
-                        window.location.href = this.getAttribute('href');
-                    }
-                });
-            });
-        });
+            // Obtain user ID and account status
+            const userId = button.getAttribute('data-id');
+            const userName = button.getAttribute('data-name');
+
+            let confirmation = confirm(
+                `Are you sure you want to delete the account of the user ${userName}?`);
+
+            if (confirmation) {
+                window.location.href = `/deleteuser/${userId}`;
+            }
+        }
     </script>
 @endsection
