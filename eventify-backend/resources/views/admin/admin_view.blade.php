@@ -15,6 +15,7 @@
                         <table class="table no-wrap user-table mb-0">
                             <thead>
                                 <tr>
+                                    <th scope="col" class="border-0 text-uppercase font-medium pl-4">Image</th>
                                     <th scope="col" class="border-0 text-uppercase font-medium pl-4">ID</th>
                                     <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
                                     <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
@@ -29,6 +30,7 @@
                             @forelse($users as $user)
                                 <tbody>
                                     <tr>
+                                        <td> <img class="img-fluid" style="width: 50%;" src="{{ asset('images/avatar-placeholder.png') }}" alt=""> </td>
                                         <td class="fw-bold">{{ $user->id }}</td>
                                         <td>
                                             <h5 class="font-medium mb-0">{{ $user->name }}</h5>
@@ -62,8 +64,8 @@
                                                 class="btn btn-outline-info btn-circle btn-lg btn-circle  toggle-status" data-id="{{ $user->id }}" data-status="{{ $user->activated }}" data-name="{{ $user->name }}">
                                                 <i class="fa fa-key" style="color: {{ $user->activated == 0 ? '#26ec18' : '#ec1818' }}"></i>
                                             </a>
-                                            <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ms-2"><i class="fa fa-trash"></i> </button>
-                                            <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ms-2"><i class="fa fa-edit"></i> </button>   
+                                            <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-trash"></i> </button>
+                                            <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-edit"></i> </button>   
                                         </td>
                                     </tr>
                                 </tbody>

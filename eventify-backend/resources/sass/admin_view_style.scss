@@ -60,6 +60,10 @@ button {
 	width: 40px;
 	height: 40px;
 	padding: 10px;
+	margin-left: 5px;
+}
+.table-responsive {
+    overflow-x: auto; /* Permite desplazamiento horizontal si es necesario */
 }
 .user-table {
 	tbody {
