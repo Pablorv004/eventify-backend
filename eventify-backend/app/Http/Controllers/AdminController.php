@@ -85,7 +85,7 @@ class AdminController extends Controller
         $user->save();
 
         
-        return redirect()->back()->with('success', __('The user has been updated succesfully'));
+        return redirect()->back()->with('success', __('The user ' . $user->name . ' has been updated succesfully'));
         
     }
 
