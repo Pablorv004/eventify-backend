@@ -58,8 +58,9 @@
                                             <h5 class="font-medium mb-0">{{ $user->deleted }}</h5>
                                         </td>
                                         <td>
-                                            <a href="{{ route('toggle.userstatus', $user->id) }}" class="btn btn-outline-info btn-circle btn-lg btn-circle">
-                                                <i class="fa fa-key"></i>
+                                            <a href="{{ route('toggle.userstatus', $user->id) }}"
+                                                class="btn btn-outline-info btn-circle btn-lg btn-circle  toggle-status" data-id="{{ $user->id }}" data-status="{{ $user->activated }}" data-name="{{ $user->name }}">
+                                                <i class="fa fa-key" style="color: {{ $user->activated == 0 ? '#26ec18' : '#ec1818' }}"></i>
                                             </a>
                                             <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ms-2"><i class="fa fa-trash"></i> </button>
                                             <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ms-2"><i class="fa fa-edit"></i> </button>   
@@ -75,4 +76,33 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.toggle-status').forEach(button => {
+            button.addEventListener('click', function (event) {
+                // Prevent default action of the button (Activate directly without waiting for confirmation)
+                event.preventDefault();
+
+                // Obtain user ID and account status
+                const userId = this.getAttribute('data-id');
+                const userName = this.getAttribute('data-name');
+                const accountStatus = parseInt(this.getAttribute('data-status'));
+
+                let confirmation = "";
+                if (accountStatus == 0) {
+                    confirmation = confirm(`Are you sure you want to activate the account of the user ${userName}?`);
+                } else {
+                    confirmation = confirm(`Are you sure you want to deactivate the account of the user ${userName}?`);
+                }
+
+                if (confirmation) {
+                    window.location.href = this.getAttribute('href');
+                }
+            });
+        });
+    });
+</script>
 @endsection
