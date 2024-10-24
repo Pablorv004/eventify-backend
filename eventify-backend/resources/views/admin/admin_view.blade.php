@@ -5,104 +5,86 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                @include("partials.errors")
-                @include("partials.messages")
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title text-uppercase mb-0">Manage Users</h5>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table no-wrap user-table mb-0">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="border-0 text-uppercase font-medium pl-4">ID</th>
-                                    <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
-                                    <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
-                                    <th scope="col" class="border-0 text-uppercase font-medium">Register date</th>
-                                    <th scope="col" class="border-0 text-uppercase font-medium">Role</th>
-                                    <th scope="col" class="border-0 text-uppercase font-medium">Verified</th>
-                                    <th scope="col" class="border-0 text-uppercase font-medium">Activated</th>
-                                    <th scope="col" class="border-0 text-uppercase font-medium">Deleted</th>
-                                    <th scope="col" class="border-0 text-uppercase font-medium">Manage</th>
-                                </tr>
-                            </thead>
-                            @forelse($users as $user)
-                                <tbody>
-                                    <tr>
-                                        <td class="fw-bold">{{ $user->id }}</td>
-                                        <td>
-                                            <h5 class="font-medium mb-0">{{ $user->name }}</h5>
-                                        </td>
-                                        <td>
-                                            <h5 class="font-medium mb-0">{{ $user->email }}</h5><br>
-                                        </td>
-                                        <td>
-                                            <h5 class="font-medium mb-0">{{ $user->created_at }}</h5><br>
-                                        </td>
-                                        <td>
-                                            @if ($user->role == 'a')
-                                                <h5>Admin</h5>
-                                            @elseif($user->role == 'u')
-                                                <h5>User</h5>
-                                            @else
-                                                <h5>Organizer</h5>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <h5 class="font-medium mb-0">{{ $user->email_confirmed }}</h5>
-                                        </td>
-                                        <td>
-                                            <h5 class="font-medium mb-0">{{ $user->activated }}</h5>
-                                        </td>
-                                        <td>
-                                            <h5 class="font-medium mb-0">{{ $user->deleted }}</h5>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('toggle.userstatus', $user->id) }}"
-                                                class="btn btn-outline-info btn-circle btn-lg btn-circle  toggle-status" data-id="{{ $user->id }}" data-status="{{ $user->activated }}" data-name="{{ $user->name }}">
-                                                <i class="fa fa-key" style="color: {{ $user->activated == 0 ? '#26ec18' : '#ec1818' }}"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ms-2"><i class="fa fa-trash"></i> </button>
-                                            <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ms-2"><i class="fa fa-edit"></i> </button>   
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            @empty
-                                <h3> There are no users to show </h3>
-                            @endforelse
-                        </table>
-                    </div>
+                @include('partials.errors')
+                @include('partials.messages')
+
+                <!-- Buttons to switch between the user lists -->
+                <div class="mb-4" role="group">
+                    <button class="btn btn-primary" onclick="showUserList('validated')">Validated Users</button>
+                    <button class="btn btn-warning ms-2" onclick="showUserList('unvalidated')">Unvalidated Users</button>
+                    <button class="btn btn-danger ms-2" onclick="showUserList('unverified')">Unverified Users</button>
                 </div>
+
+                <div id="validated_user_table">
+                    @include('partials.users.validated_user_table')
+                </div>
+
+                <div id="unvalidated_user_table" style="display: none;">
+                    @include('partials.users.unvalidated_user_table')
+                </div>
+
+                <div id="unverified_user_table" style="display: none;">
+                    @include('partials.users.unverified_user_table')
+                </div>
+
             </div>
         </div>
     </div>
 @endsection
 
 @section('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.toggle-status').forEach(button => {
-            button.addEventListener('click', function (event) {
-                // Prevent default action of the button (Activate directly without waiting for confirmation)
-                event.preventDefault();
+    <script>
+        function showUserList(listType) {
+            document.getElementById('validated_user_table').style.display = 'none';
+            document.getElementById('unvalidated_user_table').style.display = 'none';
+            document.getElementById('unverified_user_table').style.display = 'none';
 
-                // Obtain user ID and account status
-                const userId = this.getAttribute('data-id');
-                const userName = this.getAttribute('data-name');
-                const accountStatus = parseInt(this.getAttribute('data-status'));
+            if (listType === 'validated') {
+                document.getElementById('validated_user_table').style.display = 'block';
+            } else if (listType === 'unvalidated') {
+                document.getElementById('unvalidated_user_table').style.display = 'block';
+            } else if (listType === 'unverified') {
+                document.getElementById('unverified_user_table').style.display = 'block';
+            }
+        }
 
-                let confirmation = "";
-                if (accountStatus == 0) {
-                    confirmation = confirm(`Are you sure you want to activate the account of the user ${userName}?`);
-                } else {
-                    confirmation = confirm(`Are you sure you want to deactivate the account of the user ${userName}?`);
-                }
+        function handleValidateButton(event) {
+            event.preventDefault();
 
-                if (confirmation) {
-                    window.location.href = this.getAttribute('href');
-                }
-            });
-        });
-    });
-</script>
+            const button = event.currentTarget;
+            const userId = button.getAttribute('data-id');
+            const userName = button.getAttribute('data-name');
+            const accountStatus = parseInt(button.getAttribute('data-status'));
+
+            let confirmation = "";
+            if (accountStatus == 0) {
+                confirmation = confirm(
+                    `Are you sure you want to activate the account of the user ${userName}?`
+                );
+            } else {
+                confirmation = confirm(
+                    `Are you sure you want to deactivate the account of the user ${userName}?`
+                );
+            }
+
+            if (confirmation) {
+                window.location.href = `/toggleuserstatus/${userId}`;
+            }
+        }
+
+        function handleDeleteUser(event) {
+            event.preventDefault();
+
+            const button = event.currentTarget;
+            const userId = button.getAttribute('data-id');
+            const userName = button.getAttribute('data-name');
+
+            let confirmation = confirm(
+                `Are you sure you want to delete the account of the user ${userName}?`);
+
+            if (confirmation) {
+                window.location.href = `/deleteuser/${userId}`;
+            }
+        }
+    </script>
 @endsection
