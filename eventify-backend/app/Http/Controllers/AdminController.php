@@ -60,9 +60,10 @@ class AdminController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        // $this->validate(request(), [
-        //     'reply' => ['required', new ValidReply]
-        // ]);
+        $this->validate(request(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+        ]);
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
