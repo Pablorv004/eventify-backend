@@ -7,11 +7,26 @@
             <div class="col-md-12">
                 @include('partials.errors')
                 @include('partials.messages')
-                @include('partials.users.validated_user_table')
-                <br>
-                @include('partials.users.unvalidated_user_table')
-                <br>
-                @include('partials.users.unverified_user_table')
+
+                <!-- Buttons to switch between the user lists -->
+                <div class="mb-4" role="group">
+                    <button class="btn btn-primary" onclick="showUserList('validated')">Validated Users</button>
+                    <button class="btn btn-warning ms-2" onclick="showUserList('unvalidated')">Unvalidated Users</button>
+                    <button class="btn btn-danger ms-2" onclick="showUserList('unverified')">Unverified Users</button>
+                </div>
+
+                <div id="validated_user_table">
+                    @include('partials.users.validated_user_table')
+                </div>
+
+                <div id="unvalidated_user_table" style="display: none;">
+                    @include('partials.users.unvalidated_user_table')
+                </div>
+
+                <div id="unverified_user_table" style="display: none;">
+                    @include('partials.users.unverified_user_table')
+                </div>
+
             </div>
         </div>
     </div>
@@ -19,11 +34,24 @@
 
 @section('scripts')
     <script>
+        function showUserList(listType) {
+            document.getElementById('validated_user_table').style.display = 'none';
+            document.getElementById('unvalidated_user_table').style.display = 'none';
+            document.getElementById('unverified_user_table').style.display = 'none';
+
+            if (listType === 'validated') {
+                document.getElementById('validated_user_table').style.display = 'block';
+            } else if (listType === 'unvalidated') {
+                document.getElementById('unvalidated_user_table').style.display = 'block';
+            } else if (listType === 'unverified') {
+                document.getElementById('unverified_user_table').style.display = 'block';
+            }
+        }
+
         function handleValidateButton(event) {
             event.preventDefault();
 
             const button = event.currentTarget;
-
             const userId = button.getAttribute('data-id');
             const userName = button.getAttribute('data-name');
             const accountStatus = parseInt(button.getAttribute('data-status'));
@@ -48,8 +76,6 @@
             event.preventDefault();
 
             const button = event.currentTarget;
-
-            // Obtain user ID and account status
             const userId = button.getAttribute('data-id');
             const userName = button.getAttribute('data-name');
 

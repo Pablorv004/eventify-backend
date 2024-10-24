@@ -43,7 +43,6 @@
                         <div class="col-lg-8">
                             <div class="ui-select">
                                 <select id="user_role" class="form-control" name="user_role">
-                                    <option value="Admin" {{ $user->role == 'a' ? 'selected' : '' }}>Admin</option>
                                     <option value="User" {{ $user->role == 'u' ? 'selected' : '' }}>User</option>
                                     <option value="Organizer" {{ $user->role == 'o' ? 'selected' : '' }}>Organizer</option>
                                 </select>

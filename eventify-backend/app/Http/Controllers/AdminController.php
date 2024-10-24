@@ -70,9 +70,6 @@ class AdminController extends Controller
 
         $role = $request->input('user_role');
         switch ($role) {
-            case 'Admin':
-                $user->role = 'a';
-                break;
             case 'User':
                 $user->role = 'u';
                 break;

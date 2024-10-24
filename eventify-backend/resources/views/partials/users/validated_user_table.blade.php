@@ -12,29 +12,27 @@
                     <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
                     <th scope="col" class="border-0 text-uppercase font-medium">Register date</th>
                     <th scope="col" class="border-0 text-uppercase font-medium">Role</th>
-                    <th scope="col" class="border-0 text-uppercase font-medium">Verified</th>
-                    <th scope="col" class="border-0 text-uppercase font-medium">Activated</th>
-                    <th scope="col" class="border-0 text-uppercase font-medium">Deleted</th>
-                    <th scope="col" class="border-0 text-uppercase font-medium">Manage</th>
+                    <th scope="col" class="border-0 text-uppercase font-medium">Actions</th>
                 </tr>
             </thead>
             @forelse($users as $user)
-            @if($user->email_confirmed == 1 && $user->activated == 1)
+            @if($user->email_confirmed == 1 && $user->activated == 1 && $user->role != 'a')
                 <tbody>
                     <tr>
-                        <td> <img class="img-fluid" style="width: 6em"
-                                src="{{ asset($user->profile_picture) }}" alt=""> </td>
-                        <td class="fw-bold">{{ $user->id }}</td>
-                        <td>
-                            <h5 class="font-medium mb-0">{{ $user->name }}</h5>
+                    <td> <img class="img-fluid align-content-center" style="width: 3em"
+                                src="{{ asset($user->profile_picture) }}" alt="">
                         </td>
-                        <td>
-                            <h5 class="font-medium mb-0">{{ $user->email }}</h5><br>
+                        <td class="fw-bold align-content-center"><h5>{{ $user->id }}</h5></td>
+                        <td class="align-content-center">
+                            <h5>{{ $user->name }}</h5>
                         </td>
-                        <td>
-                            <h5 class="font-medium mb-0">{{ $user->created_at }}</h5><br>
+                        <td class="align-content-center">
+                            <h5>{{ $user->email }}</h5>
                         </td>
-                        <td>
+                        <td class="align-content-center">
+                            <h5>{{ $user->created_at }}</h5>
+                        </td>
+                        <td class="align-content-center">
                             @if ($user->role == 'a')
                                 <h5>Admin</h5>
                             @elseif($user->role == 'u')
@@ -42,15 +40,6 @@
                             @else
                                 <h5>Organizer</h5>
                             @endif
-                        </td>
-                        <td>
-                            <h5 class="font-medium mb-0">{{ $user->email_confirmed }}</h5>
-                        </td>
-                        <td>
-                            <h5 class="font-medium mb-0">{{ $user->activated }}</h5>
-                        </td>
-                        <td>
-                            <h5 class="font-medium mb-0">{{ $user->deleted }}</h5>
                         </td>
                         <td>
                             <button type="button"
