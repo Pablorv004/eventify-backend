@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,14 +15,29 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/sass/admin_view_style.scss'])
+
+    <!-- Styles -->
+    <style>
+    .archivo-black-regular {
+        color: #ffffff;
+        font-family: "Archivo Black", sans-serif;
+    }
+    .nav-bar-eventify-gradient {
+        background: linear-gradient(180deg, rgba(255,194,0,1) 0%, rgba(250,124,31,1) 0%, rgba(255,193,81,1) 100%);
+    }
+    body, #app {
+        margin: 0;
+        padding: 0;
+    }
+    </style>
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm nav-bar-eventify-gradient sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <span class="archivo-black-regular">EVENTIFY.</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -81,7 +95,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-0">
             @yield('content')
         </main>
     </div>

@@ -31,7 +31,7 @@ class CustomVerifyEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Custom Verify Email',
+            subject: 'Verify Email Address',
         );
     }
 

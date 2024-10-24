@@ -44,10 +44,8 @@ class ActivationEmail extends Mailable
 
     public function build()
     {
-        return $this->markdown('emails.activation_email')
-                    ->subject('Your Eventify account has been activated')
-                    ->with([
-                        'user' => $this->user,
-                    ]);
+        return $this->view('emails.activation_email')->with([
+            'user' => $this->user,
+        ]);
     }
 }
