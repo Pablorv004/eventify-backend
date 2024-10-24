@@ -81,7 +81,7 @@
                             data-name="{{ $user->name }}"
                             data-deleted="{{ $user->deleted }}"
                             onclick="handleDeletedButton(event)"
-                            class="btn {{ $user->deleted == 1 ? 'btn-danger' : 'btn-success' }} ms-2">{{ $user->deleted == 1 ? 'Account inactive' : 'Account active' }}</a>
+                            class="btn {{ $user->deleted == 1 ? 'btn-danger' : 'btn-success' }} ms-2">{{ $user->deleted == 1 ? 'Account deleted' : 'Account active' }}</a>
                     </div>
                     <div class="mt-5 text-end" style="margin-end: 22em">
                         <button type="submit" class="btn btn-success">Apply changes</button>
