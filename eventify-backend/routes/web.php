@@ -14,10 +14,10 @@ Route::get('/', function () {
 });
 
 
-Route::resource('users', AdminController::class)->middleware(['auth', 'role:a']);;
-Route::get('/toggleuserstatus/{id}', [AdminController::class, 'toggleUserStatus'])->name('toggle.userstatus');
-Route::get('/toggleuserverified/{id}', [AdminController::class, 'toggleUserVerified'])->name('toggle.userverified');
-Route::get('/deleteuser/{id}', [AdminController::class, 'toggleSoftDelete'])->name('toggle.softdelete');
+Route::resource('users', AdminController::class)->middleware(['auth', 'role:a']);
+Route::get('/toggleuserstatus/{id}', [AdminController::class, 'toggleUserStatus'])->name('toggle.userstatus')->middleware(['auth', 'role:a']);
+Route::get('/toggleuserverified/{id}', [AdminController::class, 'toggleUserVerified'])->name('toggle.userverified')->middleware(['auth', 'role:a']);
+Route::get('/deleteuser/{id}', [AdminController::class, 'toggleSoftDelete'])->name('toggle.softdelete')->middleware(['auth', 'role:a']);
 
 Auth::routes();
 
