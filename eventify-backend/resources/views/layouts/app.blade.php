@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,17 +19,67 @@
 
     <!-- Styles -->
     <style>
-    .archivo-black-regular {
-        color: #ffffff;
-        font-family: "Archivo Black", sans-serif;
-    }
-    .nav-bar-eventify-gradient {
-        background: linear-gradient(180deg, rgba(255,194,0,1) 0%, rgba(250,124,31,1) 0%, rgba(255,193,81,1) 100%);
-    }
-    body, #app {
-        margin: 0;
-        padding: 0;
-    }
+        .archivo-black-regular {
+            color: #ffffff;
+            font-family: "Archivo Black", sans-serif;
+        }
+
+        .pt-sans-regular {
+            font-family: "PT Sans", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .pt-sans-bold {
+            font-family: "PT Sans", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .pt-sans-regular-italic {
+            font-family: "PT Sans", sans-serif;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .pt-sans-bold-italic {
+            font-family: "PT Sans", sans-serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .nav-bar-eventify-gradient {
+            background: linear-gradient(180deg, rgba(255, 194, 0, 1) 0%, rgba(250, 124, 31, 1) 0%, rgba(255, 193, 81, 1) 100%);
+        }
+
+        body,
+        #app {
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .bounce {
+            animation: bounce 2s infinite;
+        }
     </style>
 </head>
 
@@ -57,18 +108,19 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link pt-sans-bold fs-5" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <li class="nav-item ">
+                                    <a class="nav-link pt-sans-bold fs-5"
+                                        href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle pt-sans-bold fs-5" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
