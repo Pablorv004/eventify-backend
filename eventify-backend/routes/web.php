@@ -42,3 +42,7 @@ Route::get('/home', [HomeController::class, 'index'])
 Route::get('/waitforauth', function () {
     return view('auth.waitforactivation');
 })->middleware(['auth', 'verified'])->name('activation.notice');
+
+Route::get('/deleted', function () {
+    return view('auth.deleted');
+})->middleware('deleted')->name('deleted.notice');

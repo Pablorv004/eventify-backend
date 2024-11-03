@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,15 +55,28 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    // Método para verificar si es admin
+    // Method to verify if user is admin
     public function isAdmin()
     {
         return $this->role === 'a';
     }
 
-    // Método para verificar si es usuario normal
+    // Method to verify if user is user
     public function isUser()
     {
         return $this->role === 'u';
+    }
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify', now()->addMinutes(60), ['id' => $this->id, 'hash' => sha1($this->email)]
+        );
+
+        Mail::to($this->email)->send(new CustomVerifyEmail($verificationUrl, $this));
     }
 }
