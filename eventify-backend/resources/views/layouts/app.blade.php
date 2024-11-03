@@ -16,14 +16,79 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/sass/admin_view_style.scss'])
+
+    <!-- Styles -->
+    <style>
+        .archivo-black-regular {
+            color: #ffffff;
+            font-family: "Archivo Black", sans-serif;
+        }
+
+        .pt-sans-regular {
+            font-family: "PT Sans", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .pt-sans-bold {
+            font-family: "PT Sans", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .pt-sans-regular-italic {
+            font-family: "PT Sans", sans-serif;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .pt-sans-bold-italic {
+            font-family: "PT Sans", sans-serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .nav-bar-eventify-gradient {
+            background: linear-gradient(180deg, rgba(255, 194, 0, 1) 0%, rgba(250, 124, 31, 1) 0%, rgba(255, 193, 81, 1) 100%);
+        }
+
+        body,
+        #app {
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm nav-bar-eventify-gradient sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <span class="archivo-black-regular">EVENTIFY.</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -43,18 +108,19 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link pt-sans-bold fs-5" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <li class="nav-item ">
+                                    <a class="nav-link pt-sans-bold fs-5"
+                                        href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle pt-sans-bold fs-5" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
@@ -65,6 +131,9 @@
                                             {{ __('Admin Panel') }}
                                         </a>
                                     @endif
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        {{ __('Home') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -81,7 +150,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-0">
             @yield('content')
         </main>
     </div>

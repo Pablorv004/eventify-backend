@@ -9,6 +9,9 @@
         p, h1, h3, h4 {
             color: #000000;
         }
+        a {
+            color: #ffffff;
+        }
         .container {
             width: 100%;
             padding: 20px;

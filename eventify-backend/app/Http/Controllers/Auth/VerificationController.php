@@ -26,18 +26,9 @@ class VerificationController extends Controller
         return redirect('/home');
     }
 
-    public function sendEmailVerificationNotification(Request $request)
-    {
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify', now()->addMinutes(60), ['id' => $request->user()->id, 'hash' => sha1($request->user()->email)]
-        );
-
-        Mail::to($request->user()->email)->send(new CustomVerifyEmail($verificationUrl, $request->user()));
-    }
-
     public function resend(Request $request)
     {
-        $this->sendEmailVerificationNotification($request);
+        $request->user()->sendEmailVerificationNotification($request);
         return back()->with('success', 'Verification link sent!');
     }
 }
