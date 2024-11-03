@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Redirect;
 
 class LoginController extends Controller
 {
@@ -22,6 +23,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+
     /**
      * Where to redirect users after login.
      *
@@ -35,6 +37,11 @@ class LoginController extends Controller
 
         if (!$user->hasVerifiedEmail()) {
             return '/email/verify';
+        }
+
+        if ($user && $user->deleted == 1) {
+            Auth::logout();
+            return '/deleted';
         }
 
         $role = $user->role;

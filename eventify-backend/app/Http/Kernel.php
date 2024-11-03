@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         'activated' => \App\Http\Middleware\EnsureUserIsActivated::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
+        'deleted' => \App\Http\Middleware\EnsureUserIsDeleted::class,
     ];
 }
