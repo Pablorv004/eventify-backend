@@ -26,7 +26,7 @@ return new class extends Migration
             $table->decimal('longitude', 9, 6);
             $table->integer('max_attendees');
             $table->decimal('price', 10, 2);
-            $table->string('image_url');
+            $table->string('image_url')->default('images/event-placeholder.png');
             $table->boolean('deleted')->default(false);
             $table->timestamps();
         });
