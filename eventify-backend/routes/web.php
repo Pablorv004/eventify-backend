@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrganizerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
@@ -13,11 +14,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+// ADMIN ROUTES
 Route::resource('users', AdminController::class)->middleware(['auth', 'role:a']);
 Route::get('/toggleuserstatus/{id}', [AdminController::class, 'toggleUserStatus'])->name('toggle.userstatus')->middleware(['auth', 'role:a']);
 Route::get('/toggleuserverified/{id}', [AdminController::class, 'toggleUserVerified'])->name('toggle.userverified')->middleware(['auth', 'role:a']);
 Route::get('/deleteuser/{id}', [AdminController::class, 'toggleSoftDelete'])->name('toggle.softdelete')->middleware(['auth', 'role:a']);
+
+
+// ORGANIZER ROUTES
+Route::resource('organizer', OrganizerController::class)->middleware(['auth', 'role:o']);
+
 
 Auth::routes();
 
