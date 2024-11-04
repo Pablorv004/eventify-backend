@@ -17,7 +17,7 @@ class EventController extends Controller
     public function index()
     {
         $organizer_events = Event::where('organizer_id', Auth::user()->id)->where('deleted', 0)->paginate(5);
-        $music_events = Event::where('category_id', 1)->where('deleted', 0)->paginate(5);
+        $music_events = Event::where('category_id', 1)->where('deleted', 0)->get();
         $sport_events = Event::where('category_id', 2)->where('deleted', 0)->get();
         $tech_events = Event::where('category_id', 3)->where('deleted', 0)->get();
         return view('events.organizer_view', compact('organizer_events', 'music_events', 'tech_events', 'sport_events'));
