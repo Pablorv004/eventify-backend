@@ -13,10 +13,11 @@
                     <div>
                         <span class="me-2" style="font-weight: bold">Event Categories</span>
                         <button class="btn btn-primary ms-2" onclick="showUserList('music_events')">Music</button>
-                        <button class="btn btn-primary ms-2" onclick="showUserList('unverified')">Tech</button>
-                        <button class="btn btn-primary ms-2" onclick="showUserList('unverified')">Sport</button>
+                        <button class="btn btn-primary ms-2" onclick="showUserList('tech_events')">Tech</button>
+                        <button class="btn btn-primary ms-2" onclick="showUserList('sport_events')">Sport</button>
                     </div>
                 </div>
+
 
                 <div id="organizer_events_table">
                     @include('partials.events.organizer_events_table')
@@ -25,14 +26,15 @@
                 <div id="music_events_table" style="display: none;">
                     @include('partials.events.music_events_table')
                 </div>
-                {{-- 
-            <div id="unverified_user_table" style="display: none;">
-                @include('partials.users.unverified_user_table')
-            </div>
 
-            <div id="unverified_user_table" style="display: none;">
-                @include('partials.users.unverified_user_table')
-            </div> --}}
+                <div id="tech_events_table" style="display: none;">
+                    @include('partials.events.tech_events_table')
+                </div>
+
+                <div id="sport_events_table" style="display: none;">
+                    @include('partials.events.sport_events_table')
+                </div>
+
 
             </div>
         </div>
@@ -44,29 +46,40 @@
         function showUserList(listType) {
             document.getElementById('organizer_events_table').style.display = 'none';
             document.getElementById('music_events_table').style.display = 'none';
-            // document.getElementById('unverified_user_table').style.display = 'none';
+            document.getElementById('tech_events_table').style.display = 'none';
+            document.getElementById('sport_events_table').style.display = 'none';
 
             if (listType === 'organizer_events') {
                 document.getElementById('organizer_events_table').style.display = 'block';
             } else if (listType === 'music_events') {
                 document.getElementById('music_events_table').style.display = 'block';
-            } else if (listType === 'unverified') {
-                document.getElementById('unverified_user_table').style.display = 'block';
+            } else if (listType === 'tech_events') {
+                document.getElementById('tech_events_table').style.display = 'block';
+            } else if (listType === 'sport_events') {
+                document.getElementById('sport_events_table').style.display = 'block';
             }
         }
 
-        function handleDeleteUser(event) {
+        function handleDeleteEvent(event) {
             event.preventDefault();
 
             const button = event.currentTarget;
-            const userId = button.getAttribute('data-id');
-            const userName = button.getAttribute('data-name');
+            const eventId = button.getAttribute('data-id');
+            const eventName = button.getAttribute('data-name');
 
             let confirmation = confirm(
-                `Are you sure you want to delete the account of the user ${userName}?`);
+                `Are you sure you want to delete the event:\n\n ${eventName}?`);
 
             if (confirmation) {
-                window.location.href = `/deleteuser/${userId}`;
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `{{ route('events.destroy', ['event' => '__eventId__']) }}`.replace('__eventId__', eventId);
+                form.innerHTML = `
+                    @csrf
+                    @method('DELETE')
+                `;
+                document.body.appendChild(form);
+                form.submit();
             }
         }
     </script>

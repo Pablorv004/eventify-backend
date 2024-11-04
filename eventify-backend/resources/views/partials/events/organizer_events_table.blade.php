@@ -46,13 +46,16 @@
                         </td>
                         <td>
                             @if ($org_event->deleted == 1)
-                                <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"
-                                    disabled>
-                                    <i class="fa fa-trash" style="color: #a2a2a3"></i>
+                                <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle" disabled> 
+                                    <i class="fa fa-trash" style="color: #a2a2a3"></i> 
                                 </button>
                             @else
-                                <button id="delete_event" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i
-                                        class="fa fa-trash"></i>
+                                <button 
+                                    id="delete_event"
+                                    class="btn btn-outline-info btn-circle btn-lg btn-circle"
+                                    data-id="{{ $org_event->id }}" data-name="{{ $org_event->title }}"
+                                    onclick="handleDeleteEvent(event)">
+                                    <i class="fa fa-trash"></i>
                                 </button>
                             @endif
                             <a href="{{ route('events.edit', $org_event->id) }}"

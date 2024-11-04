@@ -17,7 +17,7 @@
                     <th scope="col" class="border-0 text-uppercase font-medium">Actions</th>
                 </tr>
             </thead>
-            @forelse($music_events as $event)
+            @forelse($tech_events as $event)
                 <tbody>
                     <tr>
                         <td class="fw-bold align-content-center">
@@ -66,5 +66,6 @@
                 <h3> There are no events to show </h3>
             @endforelse
         </table>
+
     </div>
 </div>
