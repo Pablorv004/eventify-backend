@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\EventController;
 
 
 Route::get('/', function () {
@@ -18,6 +19,8 @@ Route::resource('users', AdminController::class)->middleware(['auth', 'role:a'])
 Route::get('/toggleuserstatus/{id}', [AdminController::class, 'toggleUserStatus'])->name('toggle.userstatus')->middleware(['auth', 'role:a']);
 Route::get('/toggleuserverified/{id}', [AdminController::class, 'toggleUserVerified'])->name('toggle.userverified')->middleware(['auth', 'role:a']);
 Route::get('/deleteuser/{id}', [AdminController::class, 'toggleSoftDelete'])->name('toggle.softdelete')->middleware(['auth', 'role:a']);
+
+Route::resource('events', EventController::class)->middleware(['auth', 'role:o']);
 
 Auth::routes();
 

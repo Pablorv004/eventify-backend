@@ -15,12 +15,29 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(7)->create(
             [
                 'role' => 'u',
+                'email_verified_at' => now(),
+                'email_confirmed' => true,
+                'activated' => random_int(0, 1),
             ]
         );
 
-        \App\Models\User::factory(3)->create(
+        \App\Models\User::factory(1)->create(
             [
                 'role' => 'o',
+                'email_verified_at' => now(),
+                'email_confirmed' => true,
+                'activated' => random_int(0, 1),
+            ]
+        );
+
+        \App\Models\User::factory()->create(
+            [
+                'email' => 'organizer@organizer.com',
+                'password' => '12345678',
+                'role' => 'o',
+                'email_verified_at' => now(),
+                'email_confirmed' => true,
+                'activated' => random_int(0, 1),
             ]
         );
         
