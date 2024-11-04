@@ -18,6 +18,7 @@ class ValidEvent implements ValidationRule
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category_id' => 'required|exists:categories,id',
+            'organizer_id' => 'required|exists:users,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'location' => 'required|string|max:255',
@@ -25,7 +26,7 @@ class ValidEvent implements ValidationRule
             'longitude' => 'required|numeric|between:-180,180',
             'max_attendees' => 'required|integer|min:1',
             'price' => 'required|numeric|min:0',
-            'image_url' => 'nullable|url',
+            'image_url' => 'nullable|string',
         ];
 
         $validator = \Validator::make($value, $rules);

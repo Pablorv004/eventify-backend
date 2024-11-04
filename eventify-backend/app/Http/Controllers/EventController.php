@@ -38,12 +38,12 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'event' => ['required', new ValidEvent],
+            'event' => [new ValidEvent],
         ]);
 
         $event = Event::create($request->all());
 
-        return redirect()->route('organizer.view', $event->organizer_id)->with('success', 'Event created successfully.');
+        return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
 
     /**
