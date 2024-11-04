@@ -82,5 +82,13 @@
                 form.submit();
             }
         }
+
+        function createNewEvent() {
+            let confirmation = confirm('Are you sure you want to create a new event?');
+
+            if (confirmation) {
+                window.location.href = `{{ route('events.create') }}`;
+            }
+        }
     </script>
 @endsection

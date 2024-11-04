@@ -84,7 +84,7 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if ($event) {
-            $event->deleted = 1; // Assuming 'status' is the field you want to change
+            $event->deleted = 1;
             $event->save();
             return redirect()->back()->with('success', 'Event deleted successfully');
         }

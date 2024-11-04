@@ -1,6 +1,11 @@
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title text-uppercase mb-0">Organizer events</h5>
+        <div class="mb-4 d-flex justify-content-between" role="group">
+            <h5 class="card-title text-uppercase mb-0" style="font-weight: bold">Organizer events</h5>
+            <div>
+                <button class="btn btn-success" onclick="createNewEvent()">Create new event</button>
+            </div>
+        </div>
     </div>
     <div class="table-responsive">
         <table class="table no-wrap user-table mb-0">

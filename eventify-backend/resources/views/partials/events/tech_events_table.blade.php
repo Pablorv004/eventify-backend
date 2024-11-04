@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title text-uppercase mb-0">Organizer events</h5>
+        <h5 class="card-title text-uppercase mb-0">Technology events</h5>
     </div>
     <div class="table-responsive">
         <table class="table no-wrap user-table mb-0">
