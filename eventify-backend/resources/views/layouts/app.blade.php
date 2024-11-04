@@ -135,7 +135,7 @@
                                         </a>
                                     @endif
                                     @if(Auth::user()->role == 'o')
-                                        <a class="dropdown-item" href="{{ route('organizer.index') }}">
+                                        <a class="dropdown-item" href="{{ route('events.index') }}">
                                             {{ __('Organizer Panel') }}
                                         </a>
                                     @endif

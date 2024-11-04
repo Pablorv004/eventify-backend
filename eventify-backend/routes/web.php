@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\OrganizerController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
@@ -22,7 +22,7 @@ Route::get('/deleteuser/{id}', [AdminController::class, 'toggleSoftDelete'])->na
 
 
 // ORGANIZER ROUTES
-Route::resource('organizer', OrganizerController::class)->middleware(['auth', 'role:o']);
+Route::resource('events', EventController::class)->middleware(['auth', 'role:o']);
 
 
 Auth::routes();

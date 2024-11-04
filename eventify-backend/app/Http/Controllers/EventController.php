@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\Event;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
+
 
 class EventController extends Controller
 {
@@ -12,7 +16,12 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        
+        $events = Event::all();
+        $organizer_events = Event::where('organizer_id', Auth::user()->id)->get();
+        $categories = Event::select('category_id')->distinct()->get();
+        $organizers = User::where('role', 'o')->get();
+        return view('events.organizer_view', compact('events', 'organizer_events'));
     }
 
     /**
@@ -34,7 +43,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +51,7 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Event $event)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +59,7 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +67,7 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+    public function destroy(string $id)
     {
         //
     }
