@@ -28,8 +28,6 @@ class EventFactory extends Factory
             'longitude' => $this->faker->longitude,
             'max_attendees' => $this->faker->numberBetween(1, 100),
             'price' => $this->faker->randomFloat(2, 0, 100),
-            'image_url' => $this->faker->imageUrl(),
-            'deleted' => false,
         ];
     }
 }

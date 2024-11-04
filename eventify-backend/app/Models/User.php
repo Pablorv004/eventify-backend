@@ -66,6 +66,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->role === 'u';
     }
+
+    // Method to verify if user is organizer
+    public function isOrganizer()
+    {
+        return $this->role === 'o';
+    }
+
+    // Define the relationship with events
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'organizer_id');
+    }
+
     /**
      * Send the email verification notification.
      *
