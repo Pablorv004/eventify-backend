@@ -7,8 +7,7 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Category;
-
-
+use App\Rules\ValidEvent;
 
 class EventController extends Controller
 {
@@ -40,17 +39,7 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'location' => 'required|string|max:255',
-            'latitude' => 'required|numeric|between:-90,90',
-            'longitude' => 'required|numeric|between:-180,180',
-            'max_attendees' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
-            'image_url' => 'nullable|url',
+            'event' => ['required', new ValidEvent],
         ]);
 
         $event = Event::create($request->all());
@@ -81,17 +70,7 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'location' => 'required|string|max:255',
-            'latitude' => 'required|numeric|between:-90,90',
-            'longitude' => 'required|numeric|between:-180,180',
-            'max_attendees' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
-            'image_url' => 'nullable|url',
+            'event' => ['required', new ValidEvent],
         ]);
 
         $event->update($request->all());
