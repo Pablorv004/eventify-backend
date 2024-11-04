@@ -69,7 +69,7 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Event $event)
     {
         $categories = Category::all();
         return view('events.create', compact('categories', 'event'));
@@ -78,7 +78,7 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Event $event)
     {
         $request->validate([
             'title' => 'required|string|max:255',
