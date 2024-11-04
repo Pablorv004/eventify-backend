@@ -16,12 +16,14 @@ class EventController extends Controller
      */
     public function index()
     {
-        
-        $events = Event::all();
-        $organizer_events = Event::where('organizer_id', Auth::user()->id)->get();
+        $events = Event::All();
+        $organizer_events = Event::where('organizer_id', Auth::user()->id)->paginate(5);
+        $music_events = Event::where('category_id', 1)->get();
+        $tech_events = Event::where('category_id', 2)->get();
+        $sport_events = Event::where('category_id', 3)->get();
         $categories = Event::select('category_id')->distinct()->get();
         $organizers = User::where('role', 'o')->get();
-        return view('events.organizer_view', compact('events', 'organizer_events'));
+        return view('events.organizer_view', compact('events', 'organizer_events', 'music_events'));
     }
 
     /**
