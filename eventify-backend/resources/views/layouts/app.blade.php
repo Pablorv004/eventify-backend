@@ -126,14 +126,19 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        {{ __('Home') }}
+                                    </a>
                                     @if(Auth::user()->role == 'a')
                                         <a class="dropdown-item" href="{{ route('users.index') }}">
                                             {{ __('Admin Panel') }}
                                         </a>
                                     @endif
-                                    <a class="dropdown-item" href="{{ route('home') }}">
-                                        {{ __('Home') }}
-                                    </a>
+                                    @if(Auth::user()->role == 'o')
+                                        <a class="dropdown-item" href="{{ route('events.index') }}">
+                                            {{ __('Organizer Panel') }}
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

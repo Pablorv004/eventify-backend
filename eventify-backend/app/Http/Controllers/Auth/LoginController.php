@@ -49,7 +49,7 @@ class LoginController extends Controller
             case 'a':
                 return '/users';
             case 'o':
-                return '/organizer/organizer_view';
+                return '/events/organizer_view';
             case 'u':
                 return '/home';
             default:
