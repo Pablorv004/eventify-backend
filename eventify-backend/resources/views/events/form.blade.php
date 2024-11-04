@@ -69,7 +69,7 @@
                             <div class="col-md-6">
                                 <input id="start_date" type="datetime-local"
                                     class="form-control @error('start_date') is-invalid @enderror" name="start_date"
-                                    value="{{ old('start_date', $event->start_date ? $event->start_date->format('Y-m-d\TH:i') : '') }}"
+                                    value="{{ old('start_date', $event->start_date ? \Carbon\Carbon::parse($event->start_date)->format('Y-m-d\TH:i') : '') }}"
                                     required>
                                 @error('start_date')
                                     <span class="invalid-feedback" role="alert">
@@ -85,7 +85,7 @@
                             <div class="col-md-6">
                                 <input id="end_date" type="datetime-local"
                                     class="form-control @error('end_date') is-invalid @enderror" name="end_date"
-                                    value="{{ old('end_date', $event->end_date ? $event->end_date->format('Y-m-d\TH:i') : '') }}"
+                                    value="{{ old('end_date', $event->end_date ? \Carbon\Carbon::parse($event->end_date)->format('Y-m-d\TH:i') : '') }}"
                                     required>
                                 @error('end_date')
                                     <span class="invalid-feedback" role="alert">
@@ -188,6 +188,9 @@
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ $event ? __('Update Event') : __('Create Event') }}
+                                </button>
+                                <button href="{{ route('events.index') }}" class="btn btn-secondary m-2"></butto>
+                                    {{ __('Cancel') }}
                                 </button>
                             </div>
                         </div>
