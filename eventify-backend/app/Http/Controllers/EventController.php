@@ -31,7 +31,7 @@ class EventController extends Controller
     public function create(Event $event = null)
     {
         $categories = Category::all();
-        return view('events.create', compact('categories', 'event'));
+        return view('events.form', compact('categories', 'event'));
     }
 
     /**
@@ -72,7 +72,7 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $categories = Category::all();
-        return view('events.create', compact('categories', 'event'));
+        return view('events.form', compact('categories', 'event'));
     }
 
     /**
