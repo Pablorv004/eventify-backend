@@ -1,11 +1,11 @@
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title text-uppercase mb-0">Sport events</h5>
+        <h5 class="card-title text-uppercase mb-0">{{ $category_name }} events</h5>
     </div>
     <div class="table-responsive">
         <table class="table no-wrap user-table mb-0">
             <thead>
-                @if($sport_events->count())
+                @if($events->count())
                 <tr>
                     <th scope="col" class="border-0 text-uppercase font-medium pl-4">Event</th>
                     <th scope="col" class="border-0 text-uppercase font-medium">Description</th>
@@ -20,7 +20,7 @@
                 </tr>
                 @endif
             </thead>
-            @forelse($sport_events as $event)
+            @forelse($events as $event)
                 <tbody>
                     <tr>
                         <td class="fw-bold align-content-center">
@@ -30,10 +30,10 @@
                             <h5>{{ $event->description }}</h5>
                         </td>
                         <td class="fw-bold align-content-center">
-                            <h5>{{ $event->description }}</h5>
+                            <h5>{{ $event->organizer->name }}</h5>
                         </td>
                         <td class="fw-bold align-content-center">
-                            <h5>{{ $event->organizer->name }}</h5>
+                            <h5>{{ $event->category->name }}</h5>
                         </td>
                         <td class="fw-bold align-content-center">
                             <h5>{{ $event->start_date }}</h5>
@@ -81,6 +81,10 @@
             </tbody>
             @endforelse
         </table>
-
+    </div>
+    <div class="mt-3 me-3 ms-3">
+        @if ($events->count())
+            {{ $events->appends(['category' => strtolower($category_name)])->links() }}
+        @endif
     </div>
 </div>

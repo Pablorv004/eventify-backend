@@ -9,33 +9,30 @@
                 @include('partials.messages')
 
                 <div class="mb-4 d-flex justify-content-between" role="group">
-                    <button class="btn btn-primary" onclick="showUserList('organizer_events')">Organizer Events (Own)</button>
+                    <button class="btn btn-primary" onclick="showUserList('organizer')">Organizer Events (Own)</button>
                     <div>
                         <span class="me-2" style="font-weight: bold">Event Categories</span>
-                        <button class="btn btn-primary ms-2" onclick="showUserList('music_events')">Music</button>
-                        <button class="btn btn-primary ms-2" onclick="showUserList('tech_events')">Tech</button>
-                        <button class="btn btn-primary ms-2" onclick="showUserList('sport_events')">Sport</button>
+                        <button class="btn btn-primary ms-2" onclick="showUserList('music')">Music</button>
+                        <button class="btn btn-primary ms-2" onclick="showUserList('tech')">Tech</button>
+                        <button class="btn btn-primary ms-2" onclick="showUserList('sport')">Sport</button>
                     </div>
                 </div>
 
-
-                <div id="organizer_events_table">
-                    @include('partials.events.organizer_events_table')
+                <div id="organizer_events_table" style="{{ $category == 'organizer' ? 'display: block;' : 'display: none;' }}">
+                    @include('partials.events.events_table', ['events' => $events, 'category_name' => 'Organizer'])
                 </div>
 
-                <div id="music_events_table" style="display: none;">
-                    @include('partials.events.music_events_table')
+                <div id="music_events_table" style="{{ $category == 'music' ? 'display: block;' : 'display: none;' }}">
+                    @include('partials.events.events_table', ['events' => $events, 'category_name' => 'Music'])
                 </div>
 
-                <div id="tech_events_table" style="display: none;">
-                    @include('partials.events.tech_events_table')
+                <div id="tech_events_table" style="{{ $category == 'tech' ? 'display: block;' : 'display: none;' }}">
+                    @include('partials.events.events_table', ['events' => $events, 'category_name' => 'Tech'])
                 </div>
 
-                <div id="sport_events_table" style="display: none;">
-                    @include('partials.events.sport_events_table')
+                <div id="sport_events_table" style="{{ $category == 'sport' ? 'display: block;' : 'display: none;' }}">
+                    @include('partials.events.events_table', ['events' => $events, 'category_name' => 'Sport'])
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -44,20 +41,10 @@
 @section('scripts')
     <script>
         function showUserList(listType) {
-            document.getElementById('organizer_events_table').style.display = 'none';
-            document.getElementById('music_events_table').style.display = 'none';
-            document.getElementById('tech_events_table').style.display = 'none';
-            document.getElementById('sport_events_table').style.display = 'none';
-
-            if (listType === 'organizer_events') {
-                document.getElementById('organizer_events_table').style.display = 'block';
-            } else if (listType === 'music_events') {
-                document.getElementById('music_events_table').style.display = 'block';
-            } else if (listType === 'tech_events') {
-                document.getElementById('tech_events_table').style.display = 'block';
-            } else if (listType === 'sport_events') {
-                document.getElementById('sport_events_table').style.display = 'block';
-            }
+            const url = new URL(window.location.href);
+            url.searchParams.set('category', listType);
+            url.searchParams.set('page', 1);
+            window.location.href = url.toString();
         }
 
         function handleDeleteEvent(event) {

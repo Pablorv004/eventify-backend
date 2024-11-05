@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Category;
 use App\Rules\ValidEvent;
 
@@ -14,13 +13,27 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $organizer_events = Event::where('organizer_id', Auth::user()->id)->where('deleted', 0)->paginate(5);
-        $music_events = Event::where('category_id', 1)->where('deleted', 0)->get();
-        $sport_events = Event::where('category_id', 2)->where('deleted', 0)->get();
-        $tech_events = Event::where('category_id', 3)->where('deleted', 0)->get();
-        return view('events.organizer_view', compact('organizer_events', 'music_events', 'tech_events', 'sport_events'));
+        $category = $request->input('category', 'organizer');
+        $page = $request->input('page', 1);
+
+        switch ($category) {
+            case 'music':
+                $events = Event::where('category_id', 1)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
+                break;
+            case 'sport':
+                $events = Event::where('category_id', 2)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
+                break;
+            case 'tech':
+                $events = Event::where('category_id', 3)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
+                break;
+            default:
+                $events = Event::where('organizer_id', Auth::user()->id)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
+                break;
+        }
+
+        return view('events.organizer_view', compact('events', 'category'));
     }
 
     /**
@@ -47,14 +60,6 @@ class EventController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Event $event)
@@ -69,12 +74,12 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $request->validate([
-            'event' => ['required', new ValidEvent],
+            'event' => [new ValidEvent],
         ]);
 
         $event->update($request->all());
 
-        return redirect()->route('organizer.view', $event->organizer_id)->with('success', 'Event updated successfully.');
+        return redirect()->route('events.index', $event->organizer_id)->with('success', 'Event updated successfully.');
     }
 
     /**
