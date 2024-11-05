@@ -17,9 +17,10 @@
                             @method('PUT')
                         @endif
 
-                        
-                        <input id="organizer_id" type="text" class="form-control @error('organizer_id') is-invalid @enderror"
-                        name="organizer_id" value="{{ old('organizer_id', $event->organizer_id ?? Auth::id()) }}" hidden>
+
+                        <input id="organizer_id" type="text"
+                            class="form-control @error('organizer_id') is-invalid @enderror" name="organizer_id"
+                            value="{{ old('organizer_id', $event->organizer_id ?? Auth::id()) }}" hidden>
 
                         <div class="row mb-3">
                             <label for="title" class="col-md-4 col-form-label text-md-end">{{ __('Title') }}</label>
@@ -118,7 +119,7 @@
                             <label for="latitude"
                                 class="col-md-4 col-form-label text-md-end">{{ __('Latitude') }}</label>
                             <div class="col-md-6">
-                                <input id="latitude" type="text"
+                                <input id="latitude" type="number" step="any"
                                     class="form-control @error('latitude') is-invalid @enderror" name="latitude"
                                     value="{{ old('latitude', $event->latitude ?? '') }}" required>
                                 @error('latitude')
@@ -133,7 +134,7 @@
                             <label for="longitude"
                                 class="col-md-4 col-form-label text-md-end">{{ __('Longitude') }}</label>
                             <div class="col-md-6">
-                                <input id="longitude" type="text"
+                                <input id="longitude" type="number" step="any"
                                     class="form-control @error('longitude') is-invalid @enderror" name="longitude"
                                     value="{{ old('longitude', $event->longitude ?? '') }}" required>
                                 @error('longitude')
@@ -193,12 +194,13 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ $event ? __('Update Event') : __('Create Event') }}
                                 </button>
-                                <button href="{{ route('events.index') }}" class="btn btn-secondary m-2"></butto>
+                                <a href="{{ route('events.index') }}" class="btn btn-secondary m-2">
                                     {{ __('Cancel') }}
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

@@ -35,6 +35,13 @@ class EventController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function show(){
+        
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create(Event $event = null)
