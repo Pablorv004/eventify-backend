@@ -7,8 +7,7 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Category;
-
-
+use App\Rules\ValidEvent;
 
 class EventController extends Controller
 {
@@ -17,12 +16,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        
-        $events = Event::all();
-        $organizer_events = Event::where('organizer_id', Auth::user()->id)->get();
-        $categories = Event::select('category_id')->distinct()->get();
-        $organizers = User::where('role', 'o')->get();
-        return view('events.organizer_view', compact('events', 'organizer_events'));
+        $organizer_events = Event::where('organizer_id', Auth::user()->id)->where('deleted', 0)->paginate(5);
+        $music_events = Event::where('category_id', 1)->where('deleted', 0)->get();
+        $sport_events = Event::where('category_id', 2)->where('deleted', 0)->get();
+        $tech_events = Event::where('category_id', 3)->where('deleted', 0)->get();
+        return view('events.organizer_view', compact('organizer_events', 'music_events', 'tech_events', 'sport_events'));
     }
 
     /**
@@ -40,22 +38,12 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'location' => 'required|string|max:255',
-            'latitude' => 'required|numeric|between:-90,90',
-            'longitude' => 'required|numeric|between:-180,180',
-            'max_attendees' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
-            'image_url' => 'nullable|url',
+            'event' => [new ValidEvent],
         ]);
 
         $event = Event::create($request->all());
 
-        return redirect()->route('organizer.view', $event->organizer_id)->with('success', 'Event created successfully.');
+        return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
 
     /**
@@ -81,17 +69,7 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'location' => 'required|string|max:255',
-            'latitude' => 'required|numeric|between:-90,90',
-            'longitude' => 'required|numeric|between:-180,180',
-            'max_attendees' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
-            'image_url' => 'nullable|url',
+            'event' => ['required', new ValidEvent],
         ]);
 
         $event->update($request->all());
@@ -102,8 +80,14 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        $event = Event::find($id);
+        if ($event) {
+            $event->deleted = 1;
+            $event->save();
+            return redirect()->back()->with('success', 'Event deleted successfully');
+        }
+        return redirect()->back()->with('error', 'Event not found');
     }
 }
