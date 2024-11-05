@@ -15,25 +15,23 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        $category = $request->input('category', 'organizer');
+        $currentCategory = $request->input('category', 'organizer');
         $page = $request->input('page', 1);
 
-        switch ($category) {
-            case 'music':
-                $events = Event::where('category_id', 1)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
-                break;
-            case 'sport':
-                $events = Event::where('category_id', 2)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
-                break;
-            case 'tech':
-                $events = Event::where('category_id', 3)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
-                break;
-            default:
-                $events = Event::where('organizer_id', Auth::user()->id)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
-                break;
+        if ($currentCategory == 'organizer') {
+            $events = Event::where('organizer_id', Auth::user()->id)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
+        } else {
+            $category = Category::where('name', ucfirst($currentCategory))->first();
+            if ($category) {
+                $events = Event::where('category_id', $category->id)->where('deleted', 0)->paginate(5, ['*'], 'page', $page);
+            } else {
+                $events = collect();
+            }
         }
 
-        return view('events.organizer_view', compact('events', 'category'));
+        $categories = Category::all();
+
+        return view('events.organizer_view', compact('events', 'currentCategory', 'categories'));
     }
 
     /**

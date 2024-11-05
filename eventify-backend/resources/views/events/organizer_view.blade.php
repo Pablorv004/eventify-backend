@@ -10,29 +10,27 @@
 
                 <div class="mb-4 d-flex justify-content-between" role="group">
                     <button class="btn btn-primary" onclick="showUserList('organizer')">Organizer Events (Own)</button>
-                    <div>
-                        <span class="me-2" style="font-weight: bold">Event Categories</span>
-                        <button class="btn btn-primary ms-2" onclick="showUserList('music')">Music</button>
-                        <button class="btn btn-primary ms-2" onclick="showUserList('tech')">Tech</button>
-                        <button class="btn btn-primary ms-2" onclick="showUserList('sport')">Sport</button>
+                    <div class="dropdown"></div>
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Event Categories
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach($categories as $category)
+                                <li><button class="dropdown-item" onclick="showUserList('{{ strtolower($category->name) }}')">{{ $category->name }}</button></li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
 
-                <div id="organizer_events_table" style="{{ $category == 'organizer' ? 'display: block;' : 'display: none;' }}">
+                <div id="organizer_events_table" style="{{ $currentCategory == 'organizer' ? 'display: block;' : 'display: none;' }}">
                     @include('partials.events.events_table', ['events' => $events, 'category_name' => 'Organizer'])
                 </div>
 
-                <div id="music_events_table" style="{{ $category == 'music' ? 'display: block;' : 'display: none;' }}">
-                    @include('partials.events.events_table', ['events' => $events, 'category_name' => 'Music'])
-                </div>
-
-                <div id="tech_events_table" style="{{ $category == 'tech' ? 'display: block;' : 'display: none;' }}">
-                    @include('partials.events.events_table', ['events' => $events, 'category_name' => 'Tech'])
-                </div>
-
-                <div id="sport_events_table" style="{{ $category == 'sport' ? 'display: block;' : 'display: none;' }}">
-                    @include('partials.events.events_table', ['events' => $events, 'category_name' => 'Sport'])
-                </div>
+                @foreach($categories as $category)
+                    <div id="{{ strtolower($category->name) }}_events_table" style="{{ $currentCategory == strtolower($category->name) ? 'display: block;' : 'display: none;' }}">
+                        @include('partials.events.events_table', ['events' => $events, 'category_name' => $category->name])
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
