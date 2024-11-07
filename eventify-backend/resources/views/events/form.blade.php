@@ -11,7 +11,8 @@
 
                 <div class="card-body">
                     <form method="POST"
-                        action="{{ $event ? route('events.update', $event->id) : route('events.store') }}">
+                        action="{{ $event ? route('events.update', $event->id) : route('events.store') }}"
+                        enctype="multipart/form-data">
                         @csrf
                         @if($event)
                             @method('PUT')
@@ -173,15 +174,17 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-md-6 text-center">
+                                {{-- Image showing --}}
+                                <img src="{{ $event && $event->image_url ? asset('images/events/' . $event->image_url) : asset('images/event-placeholder.png') }}"
+                                    alt="{{ $event && $event->image_url ? 'Event Image' : 'Event Placeholder Image' }}"
+                                    class="img-thumbnail mt-2 mb-2" style="width: 300px; height: 300px;">
 
-                        <div class="row mb-3">
-                            <label for="image_url"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Image URL') }}</label>
-                            <div class="col-md-6">
-                                <input id="image_url" type="text"
-                                    class="form-control @error('image_url') is-invalid @enderror" name="image_url"
-                                    value="{{ old('image_url', $event->image_url ?? '') }}">
-                                @error('image_url')
+                                {{-- Image input field --}}
+                                <input id="image_file" name="image_file" type="file" accept=".png, .jpg"
+                                    class="form-control @error('image_file') is-invalid @enderror">
+                                @error('image_file')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -189,14 +192,11 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                        <div class="row mb-3">
+                            <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ $event ? __('Update Event') : __('Create Event') }}
                                 </button>
-                                <a href="{{ route('events.index') }}" class="btn btn-secondary m-2">
-                                    {{ __('Cancel') }}
-                                </a>
                             </div>
                         </div>
                     </form>

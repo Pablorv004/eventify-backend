@@ -37,8 +37,9 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function show(){
-        
+    public function show()
+    {
+
     }
 
     /**
@@ -57,9 +58,23 @@ class EventController extends Controller
     {
         $request->validate([
             'event' => [new ValidEvent],
+            'image_file' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:8192',
         ]);
 
-        $event = Event::create($request->all());
+        $event = Event::create($request->except('image_file'));
+
+        $imageName = 'event-placeholder.png';
+
+        if ($request->hasFile('image_file')) {
+            $image = $request->file('image_file');
+            $imageName = 'event-image-' . $event->id . '.' . $image->getClientOriginalExtension();
+
+            $image->move(public_path('images/events'), $imageName);
+        }
+
+        $event->image_url = $imageName;
+
+        $event->save();
 
         return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
@@ -80,11 +95,29 @@ class EventController extends Controller
     {
         $request->validate([
             'event' => [new ValidEvent],
+            'image_file' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:8192',
         ]);
+
+        $imageName = null;
+
+        if ($request->hasFile('image_file')) {
+            $image = $request->file('image_file');
+            $imageName = 'event-image-' . $event->id . '.' . $image->getClientOriginalExtension();
+
+            // Save image to public/images/events
+            $image->move(public_path('images/events'), $imageName);
+        } else {
+            // Maintain image if no new image is uploaded
+            $imageName = $event->image_url;
+        }
+
+        // Update event with image name
+        $event->image_url = $imageName;
 
         $event->update($request->all());
 
-        return redirect()->route('events.index', $event->organizer_id)->with('success', 'Event updated successfully.');
+        return redirect()->route('events.index', $event->organizer_id)
+            ->with('success', 'Event updated successfully.');
     }
 
     /**
