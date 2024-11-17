@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
                 'role' => 'o',
                 'email_verified_at' => now(),
                 'email_confirmed' => true,
-                'activated' => random_int(0, 1),
+                'activated' => 1,
             ]
         );
         
