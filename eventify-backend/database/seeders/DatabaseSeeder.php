@@ -60,6 +60,7 @@ class DatabaseSeeder extends Seeder
             'email_confirmed' => true,
             'role' => 'a',
         ]);
+
         \App\Models\Category::factory()->create(
             [
                 'name' => 'Music',
@@ -67,12 +68,14 @@ class DatabaseSeeder extends Seeder
             ]
 
         );
+
         \App\Models\Category::factory()->create(
             [
                 'name' => 'Sports',
                 'description' => 'Share your passion for sports with everyone.',
             ]
         );
+
         \App\Models\Category::factory()->create(
             [
                 'name' => 'Technology',
@@ -81,5 +84,41 @@ class DatabaseSeeder extends Seeder
         );
 
         \App\Models\Event::factory(20)->create();
+
+        \App\Models\Event::factory(1)->create(
+            [
+                'title' => 'Bahia Sound',
+                'description' => 'Music event at bahia sur',
+                'start_date' => '2025-01-01 01:00:00',
+                'end_date' => '2025-01-01 07:00:00',
+                'location' => 'Bahia Sur, Cadiz',
+                'category_id' => 1,
+                'organizer_id' => 2,
+            ]
+        );
+
+        \App\Models\Event::factory(1)->create(
+            [
+                'title' => 'Football match',
+                'description' => 'Friendly football match',
+                'start_date' => '2025-02-01 17:00:00',
+                'end_date' => '2025-02-01 19:00:00',
+                'location' => 'Cadiz, Cadiz',
+                'category_id' => 2,
+                'organizer_id' => 1,
+            ]
+        );
+
+        \App\Models\Event::factory(1)->create(
+            [
+                'title' => 'Call of duty tournament',
+                'description' => 'Friendly gaming tournament',
+                'start_date' => '2025-03-06 11:00:00',
+                'end_date' => '2025-03-06 13:00:00',
+                'location' => 'San Fernando, Cadiz',
+                'category_id' => 3,
+                'organizer_id' => 2,
+            ]
+        );
     }
 }

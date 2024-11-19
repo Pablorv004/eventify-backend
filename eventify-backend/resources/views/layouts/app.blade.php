@@ -136,12 +136,11 @@
                                         </a>
                                     @endif
 
-                                    // TODO
-                                    <!-- @if(Auth::user()->role == 'u')
-                                        <a class="dropdown-item" href="{{ route('admin.index') }}">
-                                            {{ __('My Events') }}
+                                    @if(Auth::user()->role == 'u')
+                                        <a class="dropdown-item" href="{{ route('user.index') }}">
+                                            {{ __('Events') }}
                                         </a>
-                                    @endif -->
+                                    @endif
 
                                     @if(Auth::user()->role == 'o')
                                         <a class="dropdown-item" href="{{ route('events.index') }}">

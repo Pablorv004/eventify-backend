@@ -3,15 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Models\Category;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $currentCategory = $request->input('category', 'all');
+        $page = $request->input('page', 1);
+
+        if ($currentCategory == 'all') {
+            $events = Event::where('start_date', '>', now())->paginate(5, ['*'], 'page', $page);
+        } else if($currentCategory == 'user'){
+            // TODO: Implement user events
+        } else {
+            $category = Category::where('name', ucfirst($currentCategory))->first();
+            if ($category) {
+                $events = Event::where('category_id', $category->id)->where('deleted', 0)->where('start_date', '>', now())->paginate(5, ['*'], 'page', $page);
+            } else {
+                $events = collect();
+            }
+        }
+
+        $categories = Category::all();
+
+        return view('users.user_view', compact('events', 'currentCategory', 'categories'));
     }
 
     /**
