@@ -23,10 +23,21 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory(1)->create(
             [
-                'role' => 'o',
+                'role' => 'u',
                 'email_verified_at' => now(),
                 'email_confirmed' => true,
                 'activated' => random_int(0, 1),
+            ]
+        );
+
+        \App\Models\User::factory(1)->create(
+            [
+                'email' => 'user@user.com',
+                'password' => '12345678',
+                'role' => 'u',
+                'email_verified_at' => now(),
+                'email_confirmed' => true,
+                'activated' =>  1,
             ]
         );
 

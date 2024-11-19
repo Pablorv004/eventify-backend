@@ -129,16 +129,26 @@
                                     <a class="dropdown-item" href="{{ route('home') }}">
                                         {{ __('Home') }}
                                     </a>
+
                                     @if(Auth::user()->role == 'a')
-                                        <a class="dropdown-item" href="{{ route('users.index') }}">
+                                        <a class="dropdown-item" href="{{ route('admin.index') }}">
                                             {{ __('Admin Panel') }}
                                         </a>
                                     @endif
+
+                                    // TODO
+                                    <!-- @if(Auth::user()->role == 'u')
+                                        <a class="dropdown-item" href="{{ route('admin.index') }}">
+                                            {{ __('My Events') }}
+                                        </a>
+                                    @endif -->
+
                                     @if(Auth::user()->role == 'o')
                                         <a class="dropdown-item" href="{{ route('events.index') }}">
                                             {{ __('Organizer Panel') }}
                                         </a>
                                     @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
