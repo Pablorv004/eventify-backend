@@ -42,6 +42,9 @@
             <div id="user_events_table" style="{{ $currentCategory == 'all' ? 'display: block;' : 'display: none;' }}">
                 @include('partials.events.user_events_table', ['events' => $events, 'category_name' => 'all'])
             </div>
+            <div id="user_events_table" style="{{ $currentCategory == 'user' ? 'display: block;' : 'display: none;' }}">
+                @include('partials.events.user_events_table', ['events' => $events, 'category_name' => 'user'])
+            </div>
 
             @foreach($categories as $category)
                 <div id="{{ strtolower($category->name) }}_events_table"
