@@ -22,7 +22,7 @@ Route::get('/deleteuser/{id}', [AdminController::class, 'toggleSoftDelete'])->na
 
 
 // ORGANIZER ROUTES
-Route::resource('events', EventController::class)->middleware(['auth', 'role:o']);
+Route::resource('events', EventController::class)->middleware(['auth', 'role:o', 'activated']);
 
 
 Auth::routes();
