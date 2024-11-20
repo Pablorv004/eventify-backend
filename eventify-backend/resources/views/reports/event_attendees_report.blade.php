@@ -28,7 +28,7 @@
                 @foreach($events as $event)
                     <tr>
                         <td>
-                            <img src="{{ asset('images/events/' . $event->image_url) }}" alt="user" class="rounded-circle" width="40">
+                            <img src="{{ public_path('images/events/' . $event->image_url) }}" alt="user" class="rounded-circle" width="40">
                         </td>
                         <td>{{ $event->title }}</td>
                         <td>{{ $event->organizer->name }}</td>

@@ -81,10 +81,10 @@ class ReportController extends Controller
         $pdf = PDF::loadView('reports.event_attendees_report', ['events' => $events]);
 
         // Create PDF in web browser
-        return $pdf->stream();
+        // return $pdf->stream();
 
         // Download PDF
-        // return $pdf->download('prueba.pdf');
+        return $pdf->download('report.pdf');
 
     }
 }
