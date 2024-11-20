@@ -19,11 +19,20 @@ class ReportController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Creates a PDF report of the events attended by the current logged user.
      */
     public function create()
     {
-        //
+        // Events_attendees of the current logged user
+        $event_attendees = EventAttendee::where('user_id', auth()->id())->with('event')->get();
+
+        $pdf = PDF::loadView('reports.event_attendees_report', ['events' => $event_attendees]);
+
+        // Create PDF in web browser
+        // return $pdf->stream();
+
+        // Download PDF
+        return $pdf->download('report.pdf');
     }
 
     /**
@@ -64,27 +73,5 @@ class ReportController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function createReport()
-    {
-        // Events_attendees of the current logged user
-        $event_attendees = EventAttendee::where('user_id', auth()->id())->with('event')->get();
-
-        // Get the events from the event_attendees
-        $events = $event_attendees->map(function ($attendee) {
-            $event = $attendee->event;
-            $event->registered_at = $attendee->registered_at;
-            return $event;
-        });
-
-        $pdf = PDF::loadView('reports.event_attendees_report', ['events' => $events]);
-
-        // Create PDF in web browser
-        // return $pdf->stream();
-
-        // Download PDF
-        return $pdf->download('report.pdf');
-
     }
 }

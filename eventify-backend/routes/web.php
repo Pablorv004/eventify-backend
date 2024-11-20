@@ -31,7 +31,6 @@ Route::resource('user', UserController::class)->middleware(['auth', 'activated']
 
 // REPORT ROUTES
 Route::resource('report', ReportController::class)->middleware(['auth', 'activated']);
-Route::get('/report', [ReportController::class, 'createReport'])->name('report.createReport')->middleware(['auth', 'activated']);
 
 Auth::routes();
 

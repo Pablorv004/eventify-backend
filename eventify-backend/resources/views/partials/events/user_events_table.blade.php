@@ -21,23 +21,22 @@
                 <tbody>
                     <tr>
                         <td class="fw-bold align-content-center">
-                            <img src="{{ asset('images/events/' . $event->image_url) }}" alt="user"
-                                class="rounded-circle" width="40">
+                            <img src="{{ asset('images/events/' . ($currentCategory == 'user' ? $event->event->image_url : $event->image_url)) }}" alt="user" class="rounded-circle" width="40">
                         </td>
                         <td class="fw-bold align-content-center">
-                            <h5>{{ $event->title }}</h5>
+                            <h5>{{ $currentCategory == 'user' ? $event->event->title : $event->title}}</h5>
                         </td>
                         <td class="fw-bold align-content-center">
-                            <h5>{{ $event->organizer->name }}</h5>
+                            <h5>{{ $currentCategory == 'user' ? $event->event->organizer->name : $event->organizer->name}}</h5>
                         </td>
-                        @if ($category_name == 'user')
+                        @if ($currentCategory == 'user')
                             <td class="fw-bold align-content-center">
                                 <h5>{{ $event->registered_at }}
                                 </h5>
                             </td>
                         @endif
                         <td class="fw-bold align-content-center">
-                            @if($category_name == 'user')
+                            @if($currentCategory == 'user')
                                 <!-- TODO: IMPLEMENT CONTROLLER FUNCTIONS FOR REGISTERING THE USER TO AN EVENT -->
                                 <a href="#"
                                     class="btn btn-outline-info btn-circle btn-lg btn-circle">

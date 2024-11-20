@@ -43,11 +43,7 @@ class UserController extends Controller
                 
         } else if ($currentCategory == 'user') {
             // Send to the view only the events that the user is registered for
-            $events = $event_attendees->map(function ($attendee) {
-                $event = $attendee->event;
-                $event->registered_at = $attendee->registered_at;
-                return $event;
-            });
+            $events = EventAttendee::where('user_id', auth()->id())->with('event')->get();
 
         // If the code enters this else block, it means that he has selected a specific category
         } else {

@@ -44,12 +44,12 @@
             </div>
 
             <div id="user_events_table" style="{{ $currentCategory == 'user' ? 'display: block;' : 'display: none;' }}">
-                @include('partials.events.user_events_table', ['events' => $events, 'category_name' => 'all'])
+                @include('partials.events.user_events_table', ['events' => $events, 'category_name' => 'user'])
             </div>
 
             @if($currentCategory == 'user')
                 <div id="report_button" class="mt-3 d-flex justify-content-center">
-                    <a href="{{ route('report.createReport') }}" class="btn btn-primary">Generate Report</a>
+                    <a href="{{ route('report.create') }}" class="btn btn-primary">Generate Report</a>
                 </div>
             @endif
 

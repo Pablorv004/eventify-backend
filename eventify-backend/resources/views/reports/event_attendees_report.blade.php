@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         .centered-table {
@@ -7,11 +8,13 @@
             margin-right: auto;
             text-align: center;
         }
+
         .centered-title {
             text-align: center;
         }
     </style>
 </head>
+
 <body>
     <h1 class="centered-title">Event Attendees Report</h1>
     <div class="table-responsive">
@@ -25,18 +28,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($events as $event)
+                @foreach ($events as $eventAttendee)
                     <tr>
                         <td>
-                            <img src="{{ public_path('images/events/' . $event->image_url) }}" alt="user" class="rounded-circle" width="40">
+                            <img src="{{ public_path('images/events/' . $eventAttendee->event->image_url) }}"
+                                alt="user" class="rounded-circle" width="40">
                         </td>
-                        <td>{{ $event->title }}</td>
-                        <td>{{ $event->organizer->name }}</td>
-                        <td>{{ $event->start_date }}</td>
+                        <td>{{ $eventAttendee->event->title }}</td>
+                        <td>{{ $eventAttendee->event->organizer->name }}</td>
+                        <td>{{ $eventAttendee->event->start_date }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
 </body>
+
 </html>
