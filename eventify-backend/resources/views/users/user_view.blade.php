@@ -29,11 +29,11 @@
                         Events Menu
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><button class="dropdown-item"
-                                onclick="showEventsList('user')">My Events</button>
+                        <li>
+                            <button class="dropdown-item" onclick="showEventsList('user')">My Events</button>
                         </li>
-                        <li><button class="dropdown-item"
-                                onclick="showEventsList('all')">All Events</button>
+                        <li>
+                            <button class="dropdown-item" onclick="showEventsList('all')">All Events</button>
                         </li>
                     </ul>
                 </div>
@@ -42,9 +42,16 @@
             <div id="user_events_table" style="{{ $currentCategory == 'all' ? 'display: block;' : 'display: none;' }}">
                 @include('partials.events.user_events_table', ['events' => $events, 'category_name' => 'all'])
             </div>
+
             <div id="user_events_table" style="{{ $currentCategory == 'user' ? 'display: block;' : 'display: none;' }}">
-                @include('partials.events.user_events_table', ['events' => $events, 'category_name' => 'user'])
+                @include('partials.events.user_events_table', ['events' => $events, 'category_name' => 'all'])
             </div>
+
+            @if($currentCategory == 'user')
+                <div id="report_button" class="mt-3 d-flex justify-content-center">
+                    <a href="{{ route('report.createReport') }}" class="btn btn-primary">Generate Report</a>
+                </div>
+            @endif
 
             @foreach($categories as $category)
                 <div id="{{ strtolower($category->name) }}_events_table"

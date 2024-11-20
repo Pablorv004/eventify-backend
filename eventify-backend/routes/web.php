@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
@@ -27,6 +28,10 @@ Route::resource('events', EventController::class)->middleware(['auth', 'role:o',
 
 // USER ROUTES
 Route::resource('user', UserController::class)->middleware(['auth', 'activated']);
+
+// REPORT ROUTES
+Route::resource('report', ReportController::class)->middleware(['auth', 'activated']);
+Route::get('/report', [ReportController::class, 'createReport'])->name('report.createReport')->middleware(['auth', 'activated']);
 
 Auth::routes();
 
