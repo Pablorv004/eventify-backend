@@ -65,9 +65,4 @@
             @endforelse
         </table>
     </div>
-    {{-- <div class="mt-3 me-3 ms-3">
-        @if ($events->count())
-            {{ $events->appends(['category' => strtolower($category_name)])->links() }}
-        @endif
-    </div> --}}
 </div>

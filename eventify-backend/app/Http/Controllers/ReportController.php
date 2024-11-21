@@ -7,6 +7,8 @@ use App\Models\Event;
 use App\Models\Category;
 use App\Models\EventAttendee;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReportMail;
 
 class ReportController extends Controller
 {
@@ -23,16 +25,36 @@ class ReportController extends Controller
      */
     public function create()
     {
-        // Events_attendees of the current logged user
         $event_attendees = EventAttendee::where('user_id', auth()->id())->with('event')->get();
-
         $pdf = PDF::loadView('reports.event_attendees_report', ['events' => $event_attendees]);
 
-        // Create PDF in web browser
-        // return $pdf->stream();
+        return $pdf->stream();
+    }
 
-        // Download PDF
+    /**
+     * Downloads the PDF report of the events attended by the current logged user.
+     */
+    public function download()
+    {
+        $event_attendees = EventAttendee::where('user_id', auth()->id())->with('event')->get();
+        $pdf = PDF::loadView('reports.event_attendees_report', ['events' => $event_attendees]);
+
         return $pdf->download('report.pdf');
+    }
+
+    /**
+     * Sends the PDF report to the authenticated user's email.
+     */
+    public function sendEmail()
+    {
+        $event_attendees = EventAttendee::where('user_id', auth()->id())->with('event')->get();
+        $pdf = PDF::loadView('reports.event_attendees_report', ['events' => $event_attendees]);
+
+        $email = auth()->user()->email;
+
+        Mail::to($email)->send(new ReportMail($pdf));
+
+        return back()->with('success', 'PDF report sent to your email successfully.');
     }
 
     /**

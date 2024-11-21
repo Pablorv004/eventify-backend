@@ -33,6 +33,7 @@ Route::post('/user/unregister-event/{event}', [UserController::class, 'unregiste
 
 // REPORT ROUTES
 Route::resource('report', ReportController::class)->middleware(['auth', 'activated']);
+Route::post('/report/send-email', [ReportController::class, 'sendEmail'])->name('report.sendEmail')->middleware(['auth', 'activated']);
 
 Auth::routes();
 
