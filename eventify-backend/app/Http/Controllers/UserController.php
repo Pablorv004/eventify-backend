@@ -68,6 +68,38 @@ class UserController extends Controller
     }
 
     /**
+     * Register the user to an event.
+     */
+    public function registerEvent($eventId)
+    {
+        $eventAttendee = new EventAttendee();
+        $eventAttendee->event_id = $eventId;
+        $eventAttendee->user_id = auth()->id();
+        $eventAttendee->status = 'registered';
+        $eventAttendee->registered_at = now();
+        $eventAttendee->save();
+
+        return redirect()->back()->with('success', 'You have successfully registered for the event.');
+    }
+
+    /**
+     * Unregister the user from an event.
+     */
+    public function unregisterEvent($eventId)
+    {
+        $eventAttendee = EventAttendee::where('event_id', $eventId)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if ($eventAttendee) {
+            $eventAttendee->delete();
+            return redirect()->back()->with('success', 'You have successfully unregistered from the event.');
+        }
+
+        return redirect()->back()->with('error', 'You are not registered for this event.');
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

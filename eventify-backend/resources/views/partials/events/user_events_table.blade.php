@@ -37,17 +37,19 @@
                         @endif
                         <td class="fw-bold align-content-center">
                             @if($currentCategory == 'user')
-                                <!-- TODO: IMPLEMENT CONTROLLER FUNCTIONS FOR REGISTERING THE USER TO AN EVENT -->
-                                <a href="#"
-                                    class="btn btn-outline-info btn-circle btn-lg btn-circle">
-                                    <i class="fa-solid fa-user-minus"></i>
-                                </a>
+                                <form action="{{ route('user.unregisterEvent', $event->event->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle">
+                                        <i class="fa-solid fa-user-minus"></i>
+                                    </button>
+                                </form>
                             @else
-                                <!-- TODO: IMPLEMENT CONTROLLER FUNCTIONS FOR UNREGISTERING THE USER FROM AN EVENT -->
-                                <a href="#"
-                                    class="btn btn-outline-info btn-circle btn-lg btn-circle">
-                                    <i class="fa-solid fa-check" style="color: #63E6BE;"></i>
-                                </a>
+                                <form action="{{ route('user.registerEvent', $event->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle">
+                                        <i class="fa-solid fa-check" style="color: #63E6BE;"></i>
+                                    </button>
+                                </form>
                             @endif
                         </td>
                     </tr>

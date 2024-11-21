@@ -28,6 +28,8 @@ Route::resource('events', EventController::class)->middleware(['auth', 'role:o',
 
 // USER ROUTES
 Route::resource('user', UserController::class)->middleware(['auth', 'activated']);
+Route::post('/user/register-event/{event}', [UserController::class, 'registerEvent'])->name('user.registerEvent')->middleware(['auth', 'activated']);
+Route::post('/user/unregister-event/{event}', [UserController::class, 'unregisterEvent'])->name('user.unregisterEvent')->middleware(['auth', 'activated']);
 
 // REPORT ROUTES
 Route::resource('report', ReportController::class)->middleware(['auth', 'activated']);
