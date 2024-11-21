@@ -23,7 +23,7 @@
 
                 <h3>Personal info </h3>
 
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('users.update', [$user]) }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.update', [$user]) }}">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
                     <div class="form-group mb-2">
@@ -84,7 +84,7 @@
                     </div>
                     <div class="mt-5 text-end" style="margin-end: 22em">
                         <button type="submit" class="btn btn-success">Apply changes</button>
-                        <a class="btn btn-danger ms-2 button-return" href="{{ route('users.index') }}">Return</a>
+                        <a class="btn btn-danger ms-2 button-return" href="{{ route('admin.index') }}">Return</a>
                     </div>
                 </form>
             </div>

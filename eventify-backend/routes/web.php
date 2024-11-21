@@ -4,6 +4,8 @@ use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
@@ -15,7 +17,7 @@ Route::get('/', function () {
 });
 
 // ADMIN ROUTES
-Route::resource('users', AdminController::class)->middleware(['auth', 'role:a']);
+Route::resource('admin', AdminController::class)->middleware(['auth', 'role:a']);
 Route::get('/toggleuserstatus/{id}', [AdminController::class, 'toggleUserStatus'])->name('toggle.userstatus')->middleware(['auth', 'role:a']);
 Route::get('/toggleuserverified/{id}', [AdminController::class, 'toggleUserVerified'])->name('toggle.userverified')->middleware(['auth', 'role:a']);
 Route::get('/deleteuser/{id}', [AdminController::class, 'toggleSoftDelete'])->name('toggle.softdelete')->middleware(['auth', 'role:a']);
@@ -24,6 +26,11 @@ Route::get('/deleteuser/{id}', [AdminController::class, 'toggleSoftDelete'])->na
 // ORGANIZER ROUTES
 Route::resource('events', EventController::class)->middleware(['auth', 'role:o', 'activated']);
 
+// USER ROUTES
+Route::resource('user', UserController::class)->middleware(['auth', 'activated']);
+
+// REPORT ROUTES
+Route::resource('report', ReportController::class)->middleware(['auth', 'activated']);
 
 Auth::routes();
 
