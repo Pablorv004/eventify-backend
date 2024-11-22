@@ -50,10 +50,11 @@
             @if($currentCategory == 'user')
                 <div id="report_button" class="mt-3 d-flex justify-content-center">
                     <a href="{{ route('report.create') }}" class="btn btn-primary me-2">Generate Report</a>
-                    <a href="{{ route('report.sendEmail') }}" class="btn btn-primary">Send PDF to Email</a>
-            </form>
+                    <form action="{{ route('report.sendEmail') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">Send PDF to Email</button>
+                    </form>
                 </div>
-                
             @endif
 
             @foreach($categories as $category)
