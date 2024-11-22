@@ -40,14 +40,14 @@
                                 <form action="{{ route('user.unregisterEvent', $event->event->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle">
-                                        <i class="fa-solid fa-user-minus"></i>
+                                    <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
                             @else
                                 <form action="{{ route('user.registerEvent', $event->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle">
-                                        <i class="fa-solid fa-check" style="color: #63E6BE;"></i>
+                                    <i class="fa fa-plus" style="color: #63E6BE;"></i>
                                     </button>
                                 </form>
                             @endif

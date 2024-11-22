@@ -1,24 +1,31 @@
+</html>
 <!DOCTYPE html>
 <html>
 
 <head>
+    <title>Event Attendees Report</title>
     <style>
-        .centered-table {
-            margin-left: auto;
-            margin-right: auto;
+        body {
             text-align: center;
         }
 
-        .centered-title {
-            text-align: center;
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px 20px;
+            border: 1px solid black;
         }
     </style>
 </head>
 
 <body>
-    <h1 class="centered-title">Event Attendees Report</h1>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered centered-table">
+    <h1>Event Attendees Report</h1>
+    <div>
+        <table>
             <thead>
                 <tr>
                     <th>Image</th>
@@ -31,8 +38,8 @@
                 @foreach ($events as $eventAttendee)
                     <tr>
                         <td>
-                            <img src="{{ public_path('images/events/' . $eventAttendee->event->image_url) }}"
-                                alt="user" class="rounded-circle" width="40">
+                            <img src="{{ public_path('images/events/' . $eventAttendee->event->image_url) }}" alt="user"
+                                class="rounded-circle" width="40">
                         </td>
                         <td>{{ $eventAttendee->event->title }}</td>
                         <td>{{ $eventAttendee->event->organizer->name }}</td>
