@@ -47,11 +47,11 @@ class LoginController extends Controller
         $role = $user->role;
         switch ($role) {
             case 'a':
-                return '/users';
+                return '/admin';
             case 'o':
                 return '/events';
             case 'u':
-                return '/home';
+                return '/user';
             default:
                 return '/home';
         }

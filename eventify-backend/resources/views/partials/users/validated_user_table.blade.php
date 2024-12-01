@@ -69,7 +69,7 @@
                                     <i class="fa fa-trash"></i>
                                 </button>
                             @endif
-                            <a href="{{ route('users.edit', $user->id) }}"
+                            <a href="{{ route('admin.edit', $user->id) }}"
                                 class="btn btn-outline-info btn-circle btn-lg btn-circle  edituser">
                                 <i class="fa fa-edit"></i>
                             </a>

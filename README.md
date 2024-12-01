@@ -52,9 +52,9 @@ Eventify is a backend application built with PHP Laravel and Blade to manage eve
     cp .env.example .env
     ```
 
-5. Generate an application key:
+5. Install DomPDF dependency:
     ```sh
-    php artisan key:generate
+    composer require barryvdh/laravel-dompdf
     ```
 
 6. Run database migrations:

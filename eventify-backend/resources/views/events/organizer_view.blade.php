@@ -9,7 +9,7 @@
             @include('partials.messages')
 
             <div class="mb-4 d-flex justify-content-between" role="group">
-                <button class="btn btn-primary" onclick="showUserList('organizer')">Organizer Events (Own)</button>
+                <button class="btn btn-primary" onclick="showEventsList('organizer')">Organizer Events (Own)</button>
                 <div>
                     <a class="btn btn-success" href="{{route('events.create')}}">Create new event</a>
                 </div>
@@ -21,7 +21,7 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @foreach($categories as $category)
                             <li><button class="dropdown-item"
-                                    onclick="showUserList('{{ strtolower($category->name) }}')">{{ $category->name }}</button>
+                                    onclick="showEventsList('{{ strtolower($category->name) }}')">{{ $category->name }}</button>
                             </li>
                         @endforeach
                     </ul>
@@ -46,7 +46,7 @@
 
 @section('scripts')
 <script>
-    function showUserList(listType) {
+    function showEventsList(listType) {
         const url = new URL(window.location.href);
         url.searchParams.set('category', listType);
         url.searchParams.set('page', 1);
