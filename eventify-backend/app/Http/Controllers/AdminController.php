@@ -60,13 +60,15 @@ class AdminController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $this->validate(request(), [
+        $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'email' => ['email', 'max:255'],
         ]);
 
         $user->name = $request->input('name');
-        $user->email = $request->input('email');
+        if ($request->has('email')) {
+            $user->email = $request->input('email');
+        }
 
         $role = $request->input('user_role');
         switch ($role) {
@@ -80,11 +82,7 @@ class AdminController extends Controller
                 $user->role = 'o';
         }
 
-        $user->save();
-
-        
-        return redirect()->back()->with('success', __('The user ' . $user->name . ' has been updated succesfully'));
-        
+        return redirect()->back()->with('success', __("The user {$user->name} has been updated successfully"));
     }
 
     /**
