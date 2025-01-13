@@ -23,7 +23,7 @@
 
                 <h3>Personal info </h3>
 
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.update', [$user]) }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.update', [$user->id]) }}">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
                     <div class="form-group mb-2">
@@ -95,6 +95,46 @@
 
 @section('scripts')
 <script>
+        function handleVerifiedButton(event) {
+            event.preventDefault();
+
+            const button = event.currentTarget;
+            const userId = button.getAttribute('data-id');
+            const userName = button.getAttribute('data-name');
+            const verified = parseInt(button.getAttribute('data-verified'));
+
+            let confirmation = "";
+            if (verified == 0) {
+                confirmation = confirm(`Are you sure you want to manually verify the email of the user ${userName}?\n\nWARNING: This is not a recommended action`);
+            } else {
+                confirmation = confirm(`Are you sure you want to unverify the email of the user ${userName}?`);
+            }
+
+            if (confirmation) {
+                window.location.href = `/toggleuserverified/${userId}`;
+            }
+        }
+
+        function handleDeletedButton(event) {
+            event.preventDefault();
+
+            const button = event.currentTarget;
+            const userId = button.getAttribute('data-id');
+            const userName = button.getAttribute('data-name');
+            const deleted = parseInt(button.getAttribute('data-deleted'));
+
+            let confirmation = "";
+            if (deleted === 0) {
+                confirmation = confirm(`Are you sure you want to soft delete the account of the user ${userName}?`);
+            } else {
+                confirmation = confirm(`Are you sure you want to restore the account of the user ${userName}?`);
+            }
+
+            if (confirmation) {
+                window.location.href = button.getAttribute('href');
+            }
+        }
+    }
         function handleValidatedButton(event) {
             event.preventDefault();
 

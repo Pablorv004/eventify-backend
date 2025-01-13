@@ -58,17 +58,16 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, int $id)
     {
-        $this->validate($request, [
+        $user = User::find($id);
+        $this->validate(request(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255',],
         ]);
 
         $user->name = $request->input('name');
-        if ($request->has('email')) {
-            $user->email = $request->input('email');
-        }
+        $user->email = $request->input('email');
 
         $role = $request->input('user_role');
         switch ($role) {
@@ -82,7 +81,11 @@ class AdminController extends Controller
                 $user->role = 'o';
         }
 
-        return redirect()->back()->with('success', __("The user {$user->name} has been updated successfully"));
+        $user->save();
+
+        
+        return redirect()->back()->with('success', __('The user ' . $user->name . ' has been updated succesfully'));
+        
     }
 
     /**
