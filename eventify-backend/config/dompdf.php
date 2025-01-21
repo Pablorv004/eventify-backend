@@ -139,7 +139,7 @@ return [
          * @link http://www.ros.co.nz/pdf
          * @link http://www.php.net/image
          */
-        'pdf_backend' => 'CPDF',
+        'pdf_backend' => 'auto',
 
         /**
          * html target media view which should be rendered into pdf.
