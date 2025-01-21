@@ -50,13 +50,13 @@ class ReportController extends Controller
      */
     public function sendEmail()
     {
-            $pdf = $this->generatePdf();
-            $email = auth()->user()->email;
+        $pdf = $this->generatePdf();
+        $email = auth()->user()->email;
 
-            Mail::to($email)->send(new ReportMail($pdf));
+        Mail::to($email)->send(new ReportMail($pdf));
 
-            return back()->with('success', 'PDF report sent to your email successfully.');
-        
+        return back()->with('success', 'PDF report sent to your email successfully.');
+
     }
 
     /**
