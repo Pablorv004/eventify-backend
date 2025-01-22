@@ -96,4 +96,4 @@ php artisan test tests/Feature/ExampleTest.php
 You can find the test cases in the `tests/` directory.
 
 # API
-For detailed API documentation, refer to [backend-api-doc.md](backend-api-doc.md).
+For detailed API documentation, refer to [backend-api-doc.md](eventify-backend/documentation/backend-api-doc.md).
