@@ -1,12 +1,3 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
 # Introduction
 This project is a web application built using the Laravel framework. It provides a robust backend for managing various functionalities, including user authentication, data management, and PDF generation using DOMPDF.
 
@@ -57,78 +48,42 @@ To execute the project, follow these steps:
    ```
 
 # Navigation
-To navigate and test the different sections of the project, follow these steps:
+Once the project has been executed, you may navigate and test the different sections of the project.
+To do so, follow these steps:
 
-1. **Home Page**: Access the home page by visiting `http://localhost:8000`.
-2. **Login**: Navigate to the login page at `http://localhost:8000/login`.
-3. **Register**: Navigate to the registration page at `http://localhost:8000/register`.
-4. **Admin Panel**: Access the admin panel at `http://localhost:8000/admin`.
-5. **Events**: Manage events at `http://localhost:8000/events`.
-6. **User Profile**: Access user profile at `http://localhost:8000/user`.
-7. **Reports**: Manage reports at `http://localhost:8000/report`.
-
-_**Note:** Fill in the rest with screenshots and/or steps as needed._
+1. **Home Page**: Access the home page by visiting `http://localhost:8000`. It should look something like this:
+   ![Home Page](https://i.imgur.com/RLNWL03.png)
+2. **Register**: To create an account, visit the register page at `http://localhost:8000/register`. You may fill in the blanks as shown below, or try out the validation by inputting weird data:
+   ![Register Page](https://i.imgur.com/cfboFjt.png)
+3. **Register Verification**: Upon a successful registration, you'll be asked to verify by Email. It should look something like this:
+   ![Register Validation](https://i.imgur.com/BpOnQlv.png)
+4. **Register Validation**: Once verified, you may have to validate your account with an admin account. To do so, you'll have to login as an administrator. You may use your personal database for it, although we have a mock account for these cases: User: admin@admin.com - Password: 12345678
+Once logged in, visit the admin panel at `http://localhost:8000/admin`. It should look something like this:
+   ![Admin Panel](https://i.imgur.com/jPXEdnh.png) 
+Find your user and click the "key" icon to validate it. It should be red now, indicating that your account is validated.
+5. **User Role**: With the admin credentials, visit the admin panel at `http://localhost:8000/admin`. In your users 'Edit' screen you may find a way to change its role. For now, leave it as 'user', although we will change it later for Organizer testing purposes.
+6. **User - Events**: As user, you may visit `http://localhost:8000/user`. Here you'll find a list of currently ongoing events you may be interesting in joining. You may filter by category and Your/All Events. You may also register and unregister for each event. It should look something like this:
+   ![User Events](https://i.imgur.com/I2tDQc2.png)
+7. **User - Reports**: As user, you can visit the 'My Events' Section in `http://localhost:8000/user`. Here you can generate a report of events you've visited. You may also download the report. The report looks something like this:
+   ![User Reports](https://i.imgur.com/YBYd4a0.png)
+8. **Organizer - Viewing Events**: Following the steps mentioned in the 'User Role' section, you may change your role to 'organizer', although we have another organizer mock account if you're interested: User: organizer@organizer.com - Password: 12345678.
+Once done, visit `http://localhost:8000/events` with your organizer account. You'll find a new tab called 'My Events'. Here you may create new events, edit them, and delete them. You may filter by your own events or by category. It should look something like this:
+   ![Organizer Events](https://i.imgur.com/DySzbTp.png)
 
 # Testing
-_**Note:** This section will be filled in once the testing files are available._
+The project includes test cases to ensure the correctness of the application.
+To run the test cases for the application, execute the following command:
+```sh
+php artisan test
+```
+
+You may also run specific test cases by providing the path to the test file or directory:
+```sh
+php artisan test tests/Feature/ExampleTest.php
+```
+
+You can find the test cases in the `tests/` directory.
 
 # API
-For detailed API documentation, refer to [backend-api-doc.md](backend-api-doc.md).
+For detailed API documentation, refer to [backend-api-doc.md](documentation/backend-api-doc.md).
 
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
