@@ -3,7 +3,6 @@
 <html>
 
 <head>
-<<<<<<< Updated upstream
     <title>Event Attendees Report</title>
     <style>
         body {
@@ -21,9 +20,6 @@
             border: 1px solid black;
         }
     </style>
-=======
-
->>>>>>> Stashed changes
 </head>
 
 <body>
@@ -42,13 +38,8 @@
                 @foreach ($events as $eventAttendee)
                     <tr>
                         <td>
-<<<<<<< Updated upstream
                             <img src="{{ public_path('images/events/' . $eventAttendee->event->image_url) }}" alt="user"
                                 class="rounded-circle" width="40">
-=======
-                            <img src="{{ url('images/events/' . $eventAttendee->event->image_url) }}"
-                                alt="Event Image" width="40">
->>>>>>> Stashed changes
                         </td>
                         <td>{{ $eventAttendee->event->title }}</td>
                         <td>{{ $eventAttendee->event->organizer->name }}</td>

@@ -32,7 +32,6 @@ class ReportController extends Controller
 
     public function create()
     {
-<<<<<<< Updated upstream
         $pdf = $this->generatePdf();
         return $pdf->stream();
     }
@@ -43,21 +42,6 @@ class ReportController extends Controller
     public function download()
     {
         $pdf = $this->generatePdf();
-=======
-        // Obtener los eventos de los asistentes para el usuario actual
-        $event_attendees = EventAttendee::where('user_id', auth()->id())->with('event')->get();
-
-        // Crear el PDF y configurar las opciones
-        $pdf = PDF::loadView('reports.event_attendees_report', [
-            'events' => $event_attendees,
-        ])->setOptions([
-            'isHtml5ParserEnabled' => true,
-            'isRemoteEnabled' => false, // Deshabilitar imágenes remotas
-            'chroot' => public_path(), // Limitar a `public/`
-        ]);
-
-        // Descargar el PDF
->>>>>>> Stashed changes
         return $pdf->download('report.pdf');
     }
 
