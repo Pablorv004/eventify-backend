@@ -197,6 +197,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ $event ? __('Update Event') : __('Create Event') }}
                                 </button>
+                                <a href="{{ url()->previous() }}" class="btn btn-secondary ml-2">
+                                    {{ __('Cancel') }}
+                                </a>
                             </div>
                         </div>
                     </form>

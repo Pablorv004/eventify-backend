@@ -1,3 +1,4 @@
+
 # Introduction
 This project is a web application built using the Laravel framework. It provides a robust backend for managing various functionalities, including user authentication, data management, and PDF generation using DOMPDF.
 
@@ -85,5 +86,4 @@ php artisan test tests/Feature/ExampleTest.php
 You can find the test cases in the `tests/` directory.
 
 # API
-For detailed API documentation, refer to [backend-api-doc.md](documentation/backend-api-doc.md).
-
+For detailed API documentation, refer to [backend-api-doc.md](backend-api-doc.md).
