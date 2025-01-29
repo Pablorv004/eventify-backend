@@ -1,5 +1,7 @@
 # 🎫 Eventify API Documentation 🎫
 
+### Domain: https://eventify-api-knpmj.ondigitalocean.app/api
+
 ## 👤 Users
 
 ### 🟢 Register User
@@ -13,17 +15,16 @@
   | email      | string | User's email               |
   | password   | string | User's password            |
   | c_password | string | Confirm password           |
-  | role       | string | User's role                |
+  | role       | string | User's role ('o','u')      |
 - **Output Data Type:** JSON
 - **Output Codes:**
   | Code | Description               |
   |------|---------------------------|
   | 200  | User registered successfully |
   | 404  | Validation Error          |
-- **Example:**
-  ```bash
-  curl -X POST http://yourapi.com/register -d "name=John Doe&email=john@example.com&password=123456&c_password=123456&role=user"
-  ```
+
+  **We highly recommend to use Postman for testing endpoints**
+
 
 ### 🟢 Login User
 - **Endpoint:** `/login`
@@ -40,25 +41,8 @@
   |------|---------------------------|
   | 200  | User logged in successfully |
   | 401  | Unauthorized              |
-- **Example:**
-  ```bash
-  curl -X POST http://yourapi.com/login -d "email=john@example.com&password=123456"
-  ```
 
-### 🟢 Logout User
-- **Endpoint:** `/logout`
-- **Method:** `POST`
-- **Description:** Logs out a user.
-- **Parameters:** None
-- **Output Data Type:** JSON
-- **Output Codes:**
-  | Code | Description               |
-  |------|---------------------------|
-  | 200  | User logged out successfully |
-- **Example:**
-  ```bash
-  curl -X POST http://yourapi.com/logout -H "Authorization: Bearer your_token"
-  ```
+  **We highly recommend to use Postman for testing endpoints**
 
 ### 🔵 Get Users
 - **Endpoint:** `/users`
@@ -78,10 +62,8 @@
   | Code | Description               |
   |------|---------------------------|
   | 200  | Users retrieved successfully |
-- **Example:**
-  ```bash
-  curl -X GET http://yourapi.com/users
-  ```
+
+  **We highly recommend to use Postman for testing endpoints**
 
 ### 🔵 Get User
 - **Endpoint:** `/users/{id}`
@@ -105,10 +87,8 @@
   |------|---------------------------|
   | 200  | User retrieved successfully |
   | 404  | User not found            |
-- **Example:**
-  ```bash
-  curl -X GET http://yourapi.com/users/1
-  ```
+
+  **We highly recommend to use Postman for testing endpoints**
 
 ## 🎪 Events
 
@@ -139,10 +119,8 @@
   | Code | Description               |
   |------|---------------------------|
   | 200  | Events retrieved successfully |
-- **Example:**
-  ```bash
-  curl -X GET http://yourapi.com/events
-  ```
+
+  **We highly recommend to use Postman for testing endpoints**
 
 ### 🔵 Get Event
 - **Endpoint:** `/events/{id}`
@@ -174,10 +152,8 @@
   | Code | Description               |
   |------|---------------------------|
   | 200  | Event retrieved successfully |
-- **Example:**
-  ```bash
-  curl -X GET http://yourapi.com/events/1
-  ```
+
+  **We highly recommend to use Postman for testing endpoints**
 
 ### 🟢 Create Event
 - **Endpoint:** `/events`
@@ -188,7 +164,7 @@
   |--------------|--------|----------------------------|
   | title        | string | Event title                |
   | description  | string | Event description          |
-  | category_id  | int    | Category ID                |
+  | category_id  | int    | Category ID (1, 2, 3)      |
   | location     | string | Event location             |
   | start_date   | date   | Event start date           |
   | end_date     | date   | Event end date             |
@@ -203,10 +179,8 @@
   |------|---------------------------|
   | 200  | Event created successfully |
   | 404  | Validation Error          |
-- **Example:**
-  ```bash
-  curl -X POST http://yourapi.com/events -d "title=Sample Event&description=This is a sample event&category_id=1&location=Sample Location&start_date=2023-10-01&end_date=2023-10-02&latitude=40.7128&longitude=-74.0060&max_attendees=100&price=50"
-  ```
+
+  **We highly recommend to use Postman for testing endpoints**
 
 ### 🟡 Update Event
 - **Endpoint:** `/events/{id}`
@@ -217,7 +191,7 @@
   |--------------|--------|----------------------------|
   | title        | string | Event title                |
   | description  | string | Event description          |
-  | category_id  | int    | Category ID                |
+  | category_id  | int    | Category ID (1, 2, 3)      |
   | location     | string | Event location             |
   | start_date   | date   | Event start date           |
   | end_date     | date   | Event end date             |
@@ -232,10 +206,8 @@
   |------|---------------------------|
   | 200  | Event updated successfully |
   | 404  | Validation Error          |
-- **Example:**
-  ```bash
-  curl -X PUT http://yourapi.com/events/1 -d "title=Updated Event&description=This is an updated event&category_id=1&location=Updated Location&start_date=2023-10-01&end_date=2023-10-02&latitude=40.7128&longitude=-74.0060&max_attendees=150&price=75"
-  ```
+
+  **We highly recommend to use Postman for testing endpoints**
 
 ### 🔴 Delete Event
 - **Endpoint:** `/events/{id}`
@@ -250,7 +222,5 @@
   | Code | Description               |
   |------|---------------------------|
   | 200  | Event deleted successfully |
-- **Example:**
-  ```bash
-  curl -X DELETE http://yourapi.com/events/1
-  ```
+
+  **We highly recommend to use Postman for testing endpoints**
